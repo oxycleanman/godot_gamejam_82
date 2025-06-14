@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=12 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="PackedScene" uid="uid://fupifwkm20dh" path="res://scenes/player.tscn" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddwv24jq6mga0" path="res://scenes/disguise.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/info_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://opmcclhr70e0" path="res://scenes/detector.tscn" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://cc4n5h6kkkrxe" path="res://scenes/level_template.tscn" id="6_tipki"]
 [ext_resource type="PackedScene" uid="uid://x4sgn1vardrk" path="res://scenes/detected_ui_message.tscn" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
@@ -28,73 +29,77 @@ script = ExtResource("1_tefeu")
 
 [node name="GameWorld" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="GameWorld"]
+[node name="Test_Level" type="Node3D" parent="GameWorld"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GameWorld/Test_Level"]
 environment = SubResource("Environment_jyhfs")
 
-[node name="Sun" type="DirectionalLight3D" parent="GameWorld"]
+[node name="Sun" type="DirectionalLight3D" parent="GameWorld/Test_Level"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" parent="GameWorld" instance=ExtResource("1_sugp2")]
+[node name="Player" parent="GameWorld/Test_Level" instance=ExtResource("1_sugp2")]
 
-[node name="Walls" type="Node3D" parent="GameWorld"]
+[node name="Walls" type="Node3D" parent="GameWorld/Test_Level"]
 
-[node name="Wall" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42833, 0.888653, 0)
 
-[node name="Wall2" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall2" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20698, 0, 0)
 
-[node name="Wall3" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall3" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20698, 9.88818, 0)
 
-[node name="Wall10" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall10" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0801, 9.88818, 0)
 
-[node name="Wall11" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall11" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0801, 19.3905, 0)
 
-[node name="Wall12" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall12" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6593, 19.3905, 0)
 
-[node name="Wall4" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall4" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.185786, 14.3625, 0)
 
-[node name="Wall14" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall14" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.25079, -4.49316, 0)
 
-[node name="Wall6" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall6" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 9.39373, 14.3625, 0)
 
-[node name="Wall7" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall7" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 19.1688, 14.3625, 0)
 
-[node name="Wall5" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall5" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 7.43191, 5.36826, 0.00232983)
 
-[node name="Wall8" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall8" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 17.174, 5.36826, 0.00232983)
 
-[node name="Wall9" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall9" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 26.7444, 5.36826, 0.00232983)
 
-[node name="Wall13" parent="GameWorld/Walls" instance=ExtResource("2_0wfyh")]
+[node name="Wall13" parent="GameWorld/Test_Level/Walls" instance=ExtResource("2_0wfyh")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 27.7185, 24.0813, 0.00232983)
 
-[node name="Pickups" type="Node3D" parent="GameWorld"]
+[node name="Pickups" type="Node3D" parent="GameWorld/Test_Level"]
 
-[node name="Disguise" parent="GameWorld/Pickups" instance=ExtResource("4_tbgi4")]
+[node name="Disguise" parent="GameWorld/Test_Level/Pickups" instance=ExtResource("4_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.09204, 5.60519, 0)
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Disguise2" parent="GameWorld/Pickups" instance=ExtResource("4_tbgi4")]
+[node name="Disguise2" parent="GameWorld/Test_Level/Pickups" instance=ExtResource("4_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.9152, 15.3343, 0)
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Detectors" type="Node3D" parent="GameWorld"]
+[node name="Detectors" type="Node3D" parent="GameWorld/Test_Level"]
 
-[node name="Detector" parent="GameWorld/Detectors" instance=ExtResource("5_tefeu")]
+[node name="Detector" parent="GameWorld/Test_Level/Detectors" instance=ExtResource("5_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2637, 9.80502, 0)
+
+[node name="Level_Template" parent="GameWorld" instance=ExtResource("6_tipki")]
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -114,6 +119,6 @@ offset_right = 160.0
 unique_name_in_owner = true
 layout_mode = 1
 
-[connection signal="player_disguise_health_changed" from="GameWorld/Player" to="." method="_on_player_disguise_health_changed"]
-[connection signal="player_disguised" from="GameWorld/Player" to="." method="_on_player_disguised"]
-[connection signal="detected_player" from="GameWorld/Detectors/Detector" to="." method="_on_detector_detected_player"]
+[connection signal="player_disguise_health_changed" from="GameWorld/Test_Level/Player" to="." method="_on_player_disguise_health_changed"]
+[connection signal="player_disguised" from="GameWorld/Test_Level/Player" to="." method="_on_player_disguised"]
+[connection signal="detected_player" from="GameWorld/Test_Level/Detectors/Detector" to="." method="_on_detector_detected_player"]

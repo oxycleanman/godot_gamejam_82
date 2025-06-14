@@ -44,7 +44,6 @@ func _handle_disguise_degredation(delta: float) -> void:
 	# remapping disguise health to 0-100 scale so it displays in progress bar correctly
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
 	if current_disguise_health == 0.0:
-		print("disguise depleted")
 		currently_disguised = false
 		current_disguise_health = max_disguise_health
 		player_material.emission = starting_material_color
