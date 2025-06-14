@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=5 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/ui/info_panel.tscn" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://dg1i84ectnuam" path="res://scenes/ui/loading_ui_message.tscn" id="5_tefeu"]
 [ext_resource type="Script" uid="uid://dxqgt8reametb" path="res://scripts/ui_manager.gd" id="7_85g3d"]
 [ext_resource type="PackedScene" uid="uid://x4sgn1vardrk" path="res://scenes/ui/detected_ui_message.tscn" id="7_o6xl0"]
 
@@ -31,18 +30,3 @@ offset_right = 160.0
 [node name="DetectedAlert" parent="UI" instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
 layout_mode = 1
-
-[node name="LoadingMessage" parent="UI" instance=ExtResource("5_tefeu")]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -113.0
-offset_top = -47.5
-offset_right = 113.0
-offset_bottom = 47.5
-grow_horizontal = 2
-grow_vertical = 2

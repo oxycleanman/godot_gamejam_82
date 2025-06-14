@@ -9,6 +9,7 @@ material = ExtResource("2_g2els")
 [sub_resource type="SphereShape3D" id="SphereShape3D_tefeu"]
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 3
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 platform_on_leave = 2
