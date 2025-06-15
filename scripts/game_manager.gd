@@ -6,6 +6,7 @@ const LEVEL_TEMPLATE: PackedScene = preload("res://scenes/levels/level_template.
 
 @onready var game_world: Node3D = %GameWorld
 var ui_manager: UIManager
+var camera_manager: CameraManager
 var player_lives: int = 3
 var current_level_node: Node
 var current_level_index: int = -1
@@ -14,7 +15,8 @@ var game_levels: Array[PackedScene]
 
 func _ready() -> void:
 	Globals.refs[Constants.GAME_MANAGER] = self
-	ui_manager = Globals.refs.get(Constants.UI_MANAGER)
+	ui_manager = Globals.refs[Constants.UI_MANAGER]
+	camera_manager = Globals.refs[Constants.CAMERA_MANAGER]
 	game_levels = [
 		TEST_LEVEL,
 		LEVEL_TEMPLATE
@@ -33,6 +35,7 @@ func _advance_level() -> void:
 	
 	game_world.add_child(new_level)
 	current_level_node = new_level
+	camera_manager.update_player_reference()
 	ui_manager.on_new_level_loaded()
 
 
@@ -64,6 +67,7 @@ func _reset_current_level() -> void:
 	current_level_node = level
 	ui_manager.set_player_lives(3)
 	game_world.add_child(level)
+	camera_manager.update_player_reference()
 	ui_manager.on_new_level_loaded()
 
 
