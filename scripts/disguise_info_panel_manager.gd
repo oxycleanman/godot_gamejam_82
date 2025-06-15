@@ -1,4 +1,4 @@
-class_name InfoPanelManager extends MarginContainer
+class_name DisguiseInfoPanelManager extends MarginContainer
 
 @onready var progress_bar: ProgressBar = %ProgressBar
 

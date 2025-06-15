@@ -15,6 +15,7 @@ script = ExtResource("2_ljmlm")
 material = ExtResource("1_7wco7")
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("ConvexPolygonShape3D_o6xl0")

@@ -6,6 +6,8 @@
 radius = 4.33303
 
 [node name="Area3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_edrlx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

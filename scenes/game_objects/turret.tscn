@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://7mnpts8lt0nc"]
+[gd_scene load_steps=5 format=3 uid="uid://7mnpts8lt0nc"]
 
 [ext_resource type="Script" uid="uid://evbenayimc0i" path="res://scripts/turret.gd" id="1_j40cd"]
 
@@ -9,41 +9,18 @@ emission = Color(0.446777, 0.446777, 0.446777, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_j40cd"]
 material = SubResource("StandardMaterial3D_pj6n8")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a5bpn"]
-emission_enabled = true
-emission = Color(1, 0.4, 0.0862745, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5k3bv"]
-material = SubResource("StandardMaterial3D_a5bpn")
-radius = 0.2
-height = 1.0
-radial_segments = 32
-rings = 4
-
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_drqaj"]
 points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_wdhcb"]
-radius = 10.1921
 
 [node name="Turret" type="StaticBody3D"]
 script = ExtResource("1_j40cd")
 
-[node name="TurretBody" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("PrismMesh_j40cd")
-
-[node name="Barrel" type="MeshInstance3D" parent="TurretBody"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.443827, 0)
-mesh = SubResource("CapsuleMesh_5k3bv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_drqaj")
 
-[node name="SightRange" type="Area3D" parent="."]
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
 unique_name_in_owner = true
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SightRange"]
-shape = SubResource("SphereShape3D_wdhcb")
-debug_color = Color(0.789962, 0.423213, 0.196043, 0.42)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02814, 0)

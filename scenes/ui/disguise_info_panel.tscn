@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpyb4i1tar2bp"]
 
-[ext_resource type="Script" uid="uid://5dw11fyiadjj" path="res://scripts/info_panel_manager.gd" id="1_nkgev"]
+[ext_resource type="Script" uid="uid://5dw11fyiadjj" path="res://scripts/disguise_info_panel_manager.gd" id="1_nkgev"]
 
-[node name="InfoPanel" type="MarginContainer"]
+[node name="DisguiseInfoPanel" type="MarginContainer"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
