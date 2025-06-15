@@ -22,7 +22,7 @@ func _handle_alert_detection(body: Node3D) -> void:
 		detected_player.emit()
 
 
-func _handle_collectible_detection(body: Node3D) -> void:
+func _handle_collectible_detection(_body: Node3D) -> void:
 	print("Picked up collectable")
 
 

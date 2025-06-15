@@ -10,6 +10,9 @@ var speed: int = 5
 var drag_when_stopping: float = 0.03
 var input_vector: Vector2 = Vector2.ZERO
 var movement_direction: Vector2 = Vector2.ZERO
+var bouncing_from_collision: bool = false
+var bounceback_speed: float = 1.5
+var bounceback_input_delay: float = 0.3
 var currently_disguised: bool = false:
 	set(value):
 		currently_disguised = value
@@ -27,16 +30,29 @@ func _unhandled_input(_event: InputEvent) -> void:
 	input_vector = Input.get_vector(Constants.MOVE_LEFT, Constants.MOVE_RIGHT, Constants.MOVE_DOWN, Constants.MOVE_UP)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void:		
+	var collided_during_movement: bool = move_and_slide()
+	
+	if bouncing_from_collision:
+		velocity = velocity.move_toward(Vector3.ZERO, drag_when_stopping * delta)
+		_handle_disguise_degredation(delta)
+		return
+	
 	if input_vector.is_zero_approx():
 		movement_direction = movement_direction.move_toward(Vector2.ZERO, drag_when_stopping)
 	else:
 		movement_direction = input_vector
 		_handle_disguise_degredation(delta)
 	
-	velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
+	if not collided_during_movement:
+		velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
+		return
 	
-	var collided_during_movement: bool = move_and_slide()
+	var collision_normal: Vector3 = get_last_slide_collision().get_normal()
+	velocity = velocity.bounce(collision_normal) * bounceback_speed
+	movement_direction = movement_direction.bounce(Vector2(collision_normal.x, collision_normal.y))
+	bouncing_from_collision = true
+	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
 
 
 func _handle_disguise_degredation(delta: float) -> void:

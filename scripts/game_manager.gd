@@ -28,9 +28,6 @@ func _start_game() -> void:
 
 
 func _advance_level() -> void:
-	# This function will need to determine what level to load, then load it
-	# After loading the level, it will need to connect the detectors and player from the new level
-	# to the appropriate classes so events are handled correctly for the new level
 	current_level_index += 1
 	var new_level: Node = _load_level()
 	

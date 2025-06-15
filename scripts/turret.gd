@@ -18,7 +18,7 @@ func _setup() -> void:
 	player = Globals.refs[Constants.PLAYER]
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	

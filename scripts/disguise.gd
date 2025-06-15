@@ -15,6 +15,6 @@ func _setup() -> void:
 	material.emission = emission_color
 
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
+func _on_area_3d_body_entered(_body: Node3D) -> void:
 	player.disguise_player(emission_color)
 	queue_free()
