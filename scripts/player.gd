@@ -49,10 +49,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var collision_normal: Vector3 = get_last_slide_collision().get_normal()
-	velocity = velocity.bounce(collision_normal) * bounceback_speed
-	movement_direction = movement_direction.bounce(Vector2(collision_normal.x, collision_normal.y))
-	bouncing_from_collision = true
-	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
+	_bounce_player(collision_normal)
 
 
 func _handle_disguise_degredation(delta: float) -> void:
@@ -69,8 +66,27 @@ func _handle_disguise_degredation(delta: float) -> void:
 		player_material.emission = starting_material_color
 
 
+func _bounce_player(normal_from_collision: Vector3) -> void:
+	if bouncing_from_collision:
+		return
+	
+	bouncing_from_collision = true
+	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
+	velocity = velocity.bounce(normal_from_collision) * bounceback_speed
+	movement_direction = movement_direction.bounce(Vector2(normal_from_collision.x, normal_from_collision.y))
+
+
 func disguise_player(color: Color) -> void:
 	currently_disguised = true
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
 	player_material.emission = color
+
+
+func push_player_back() -> void:
+	if bouncing_from_collision:
+		return
 	
+	bouncing_from_collision = true
+	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
+	velocity = -velocity
+	movement_direction = -movement_direction

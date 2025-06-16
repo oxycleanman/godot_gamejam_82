@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=9 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://c8sobjdahri64" path="res://scripts/camera_manager.gd" id="2_o6xl0"]
+[ext_resource type="Script" uid="uid://c6wgrnch08il1" path="res://scripts/level_manager.gd" id="2_tipki"]
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/ui/disguise_info_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dg1i84ectnuam" path="res://scenes/ui/loading_ui_message.tscn" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://8s3sk53e2u51" path="res://scenes/ui/player_info_panel.tscn" id="6_tefeu"]
@@ -10,6 +11,9 @@
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_tefeu")
+
+[node name="LevelManager" type="Node" parent="."]
+script = ExtResource("2_tipki")
 
 [node name="GameWorld" type="Node3D" parent="."]
 unique_name_in_owner = true

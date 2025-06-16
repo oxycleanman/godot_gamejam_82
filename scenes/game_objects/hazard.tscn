@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://djqoe14k4u6xk"]
+
+[ext_resource type="Script" uid="uid://bhkabxgiuekbi" path="res://scripts/detector.gd" id="1_aov4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aov4u"]
+emission_enabled = true
+emission = Color(0.866667, 0.898039, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3px45"]
+material = SubResource("StandardMaterial3D_aov4u")
+top_radius = 0.05
+bottom_radius = 0.3
+height = 1.0
+radial_segments = 16
+rings = 2
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aov4u"]
+points = PackedVector3Array(-0.3, -0.5, 0, -0.277212, -0.5, -0.11482, -0.277212, -0.5, 0.114761, -0.216719, -0.166699, 0, -0.212138, -0.5, -0.212138, -0.0500392, 0.5, 0, -0.0462216, 0.5, -0.0191464, -0.0943226, 0.166601, -0.0943226, -0.212138, -0.5, 0.212079, -0.0943226, 0.166601, 0.0942639, -0.0462216, 0.5, 0.0190877, -0.11482, -0.5, -0.277212, -0.0353563, 0.5, -0.0353563, -0.0191464, 0.5, -0.0462216, -0.11482, -0.5, 0.277153, -0.0191464, 0.5, 0.0461629, -0.0353563, 0.5, 0.0352976, 0, -0.166699, -0.216719, 0, -0.5, -0.3, 0, 0.5, -0.0500392, 0, -0.5, 0.3, 0, 0.5, 0.0499804, 0.114761, -0.5, -0.277212, 0.0190877, 0.5, -0.0462216, 0.114761, -0.5, 0.277153, 0.0190877, 0.5, 0.0461629, 0.212079, -0.5, -0.212138, 0.0942639, 0.166601, -0.0943226, 0.0352976, 0.5, -0.0353563, 0.212079, -0.5, 0.212079, 0.0942639, 0.166601, 0.0942639, 0.0352976, 0.5, 0.0352976, 0.277153, -0.5, -0.11482, 0.0461629, 0.5, -0.0191464, 0.277153, -0.5, 0.114761, 0.0461629, 0.5, 0.0190877, 0.3, -0.5, 0, 0.0499804, 0.5, 0)
+
+[node name="Area3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_aov4u")
+detector_type = "Hazard"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_3px45")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_aov4u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

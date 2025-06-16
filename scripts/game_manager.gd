@@ -1,26 +1,17 @@
 class_name GameManager extends Node3D
 
-# TODO: make better level loading system
-const TEST_LEVEL: PackedScene = preload("res://scenes/levels/test_level.tscn")
-const LEVEL_TEMPLATE: PackedScene = preload("res://scenes/levels/level_template.tscn")
-
 @onready var game_world: Node3D = %GameWorld
 var ui_manager: UIManager
 var camera_manager: CameraManager
+var level_manager: LevelManager
 var player_lives: int = 3
-var current_level_node: Node
-var current_level_index: int = -1
-var game_levels: Array[PackedScene]
 
 
 func _ready() -> void:
 	Globals.refs[Constants.GAME_MANAGER] = self
 	ui_manager = Globals.refs[Constants.UI_MANAGER]
 	camera_manager = Globals.refs[Constants.CAMERA_MANAGER]
-	game_levels = [
-		TEST_LEVEL,
-		LEVEL_TEMPLATE
-	] 
+	level_manager = Globals.refs[Constants.LEVEL_MANAGER]
 	_start_game()
 
 
@@ -30,45 +21,47 @@ func _start_game() -> void:
 
 
 func _advance_level() -> void:
-	current_level_index += 1
-	var new_level: Node = _load_level()
-	
+	var new_level: Node = level_manager.advance_level()
 	game_world.add_child(new_level)
-	current_level_node = new_level
-	camera_manager.update_player_reference()
+	_connect_level_interface_signals()
+	camera_manager.on_level_loaded()
 	ui_manager.on_new_level_loaded()
 
 
-func _load_level() -> Node:
-	var level: Node = game_levels[current_level_index].instantiate()
-	var level_manager: LevelManager = level as LevelManager
-	level_manager.level_disguise_health_changed.connect(ui_manager.on_player_disguise_health_changed)
-	level_manager.level_player_disguised.connect(ui_manager.on_player_disguised)
-	level_manager.level_player_detected.connect(ui_manager.on_player_detected)
-	level_manager.level_goal_reached.connect(_handle_goal_reached)
-	level_manager.level_fired_projectile.connect(_handle_projectiles)
-	return level
+func _connect_level_interface_signals() -> void:
+	var level_interface: LevelInterface = level_manager.get_current_level() as LevelInterface
+	level_interface.level_disguise_health_changed.connect(ui_manager.on_player_disguise_health_changed)
+	level_interface.level_player_disguised.connect(ui_manager.on_player_disguised)
+	level_interface.level_player_detected.connect(ui_manager.on_player_detected)
+	level_interface.level_player_hit_hazard.connect(_handle_player_hit)
+	level_interface.level_goal_reached.connect(_handle_goal_reached)
+	level_interface.level_fired_projectile.connect(_handle_projectiles)
 
 
 func _handle_goal_reached() -> void:
-	game_world.remove_child.call_deferred(current_level_node)
-	current_level_node.queue_free()
+	level_manager.teardown_current_level()
+	_cleanup_game_world()
 	ui_manager.on_goal_reached()
 	await get_tree().create_timer(1.0).timeout
 	_advance_level()
 
 
 func _reset_current_level() -> void:
-	game_world.remove_child.call_deferred(current_level_node)
-	current_level_node.queue_free()
+	var level_node: Node = level_manager.reload_current_level()
+	_cleanup_game_world()
 	ui_manager.on_goal_reached()
 	await get_tree().create_timer(1.0).timeout
-	var level: Node = _load_level()
-	current_level_node = level
+	_connect_level_interface_signals()
 	ui_manager.set_player_lives(3)
-	game_world.add_child(level)
-	camera_manager.update_player_reference()
+	game_world.add_child(level_node)
+	camera_manager.on_level_loaded()
 	ui_manager.on_new_level_loaded()
+
+
+func _cleanup_game_world() -> void:
+	var child_nodes: Array[Node] = game_world.get_children()
+	for child_node: Node in child_nodes:
+		child_node.queue_free()
 
 
 func _handle_projectiles(projectile: Projectile) -> void:
@@ -76,7 +69,6 @@ func _handle_projectiles(projectile: Projectile) -> void:
 
 
 func _handle_player_hit() -> void:
-	print("projectile hit player")
 	player_lives -= 1
 	ui_manager.set_player_lives(player_lives)
 	
