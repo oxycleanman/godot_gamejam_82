@@ -67,8 +67,7 @@ func _connect_enemies_to_handlers() -> void:
 	
 	var enemies: Array[Node] = enemy_parent_node.get_children()
 	for enemy_node: Node in enemies:
-		if enemy_node is not Turret:
-			continue
-		
-		var turret: Turret = enemy_node as Turret
-		turret.fired_projectile.connect(_handle_enemy_fired_projectile)
+		if enemy_node is Turret:
+			enemy_node.fired_projectile.connect(_handle_enemy_fired_projectile)
+		if enemy_node is Enemy:
+			enemy_node.detected_player.connect(_handle_detector_player_detection)

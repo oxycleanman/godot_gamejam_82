@@ -5,10 +5,11 @@ signal fired_projectile(projectile: Projectile)
 const PROJECTILE: PackedScene = preload("res://scenes/game_objects/projectile.tscn")
 
 @onready var projectile_spawn_point: Marker3D = %ProjectileSpawnPoint
+
 @export var detection_distance: float = 50.0
+
 var player: Player
 var projectile: Projectile
-
 
 func _ready() -> void:
 	_setup.call_deferred()
@@ -26,12 +27,10 @@ func _physics_process(_delta: float) -> void:
 	var distance_to_player: float = global_position.distance_squared_to(current_player_position)
 	if distance_to_player <= detection_distance:
 		#print("Player within detection distance of turret")
-		if player.currently_disguised:
-			print("Player disguised. Cannot see")
-		else:
-			#print("Player visibile. Should attack")
+		if not player.currently_disguised:
 			if is_instance_valid(projectile):
 				return
+			
 			var projectile_node: Node3D = PROJECTILE.instantiate()
 			projectile = projectile_node as Projectile
 			get_tree().current_scene.get_node("%GameWorld").add_child(projectile_node)

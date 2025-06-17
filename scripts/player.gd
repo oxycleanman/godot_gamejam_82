@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	var collided_during_movement: bool = move_and_slide()
 	
 	if bouncing_from_collision:
-		velocity = velocity.move_toward(Vector3.ZERO, drag_when_stopping * delta)
+		velocity = velocity.move_toward(Vector3.ZERO, drag_when_stopping)
 		_handle_disguise_degredation(delta)
 		return
 	
@@ -80,6 +80,11 @@ func disguise_player(color: Color) -> void:
 	currently_disguised = true
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
 	player_material.emission = color
+
+
+func remove_player_disguise() -> void:
+	currently_disguised = false
+	player_material.emission = starting_material_color
 
 
 func push_player_back() -> void:

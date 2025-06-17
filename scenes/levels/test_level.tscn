@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2noo3321rthx"]
+[gd_scene load_steps=12 format=3 uid="uid://c2noo3321rthx"]
 
 [ext_resource type="Script" uid="uid://b83uv1va2hfvr" path="res://scripts/level_interface.gd" id="1_tmr53"]
 [ext_resource type="PackedScene" uid="uid://fupifwkm20dh" path="res://scenes/game_objects/player.tscn" id="1_x4b8f"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://opmcclhr70e0" path="res://scenes/game_objects/detector.tscn" id="4_88ety"]
 [ext_resource type="PackedScene" uid="uid://7mnpts8lt0nc" path="res://scenes/game_objects/turret.tscn" id="6_6xh4u"]
 [ext_resource type="PackedScene" uid="uid://djqoe14k4u6xk" path="res://scenes/game_objects/hazard.tscn" id="6_cyt5c"]
+[ext_resource type="PackedScene" uid="uid://k0stbi73k6g" path="res://scenes/game_objects/enemy.tscn" id="8_7x1jh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -35,6 +36,7 @@ environment = SubResource("Environment_jyhfs")
 
 [node name="Player" parent="." instance=ExtResource("1_x4b8f")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 9, 0)
 
 [node name="Walls" type="Node3D" parent="."]
 
@@ -250,3 +252,6 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 31.048
 
 [node name="Turret3" parent="Enemies" instance=ExtResource("6_6xh4u")]
 transform = Transform3D(-0.965926, -0.258819, 0, 0.258819, -0.965926, 0, 0, 0, 1, 53.0482, -12.5398, 0)
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("8_7x1jh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 9, 0)
