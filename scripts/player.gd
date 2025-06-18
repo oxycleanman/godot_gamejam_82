@@ -46,6 +46,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		#player_material.set_shader_parameter("posMult", 1.0)
 		movement_direction = input_vector
+		rotate_object_local(Vector3.UP, delta * movement_direction.x * speed)
+		rotate_object_local(Vector3.LEFT, delta * movement_direction.y * speed)
 		_handle_disguise_degredation(delta)
 	
 	if not collided_during_movement:

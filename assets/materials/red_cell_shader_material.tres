@@ -26,5 +26,5 @@ shader_parameter/dist = 0.0
 shader_parameter/speed = 0.4
 shader_parameter/glow_intensity = 1.5
 shader_parameter/glow_amount = 1.2
-shader_parameter/posMult = 0.15
+shader_parameter/posMult = 0.2
 shader_parameter/noise = SubResource("NoiseTexture2D_43t04")

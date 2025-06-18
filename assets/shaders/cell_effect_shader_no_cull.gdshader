@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode unshaded, cull_back, world_vertex_coords;
+render_mode unshaded, cull_back;
 
 uniform vec3 Color: source_color;
 uniform vec3 glow_color: source_color;
@@ -13,8 +13,10 @@ uniform sampler2D noise: repeat_enable;
 
 void vertex()
 {
-	vec4 pos = texture(noise, vec2(VERTEX.x + (TIME * speed),VERTEX.y)) - vec4(0.5);
-	//vec4 pos = texture(noise, vec2(VERTEX.x,VERTEX.y)) - vec4(0.5);
+	//float randx = fract(sin(dot(vec2(4.9298 * TIME, 9.1514), vec2(2.9898, 4.1414 * TIME))) * 4758.5453) * TIME;
+	//float randy = fract(sin(dot(vec2(66.9298, 14.1514 * TIME), vec2(12.9898 * TIME, 4.1414))) * 4758.5453);
+	//vec4 pos = texture(noise, vec2(randx * speed, randy * speed)) - vec4(0.5);
+	vec4 pos = texture(noise, vec2(VERTEX.x + TIME * speed,VERTEX.y + TIME * speed)) - vec4(0.5);
 	VERTEX += (pos.xyz * posMult) * NORMAL;
 }
 
