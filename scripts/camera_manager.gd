@@ -1,8 +1,8 @@
 class_name CameraManager extends Camera3D
 
 var player: Player
-var camera_move_speed: float = 10.0
-var camera_z_offset: float = 10.0
+var camera_move_speed: float = 20.0
+var camera_z_offset: float = 20.0
 
 
 func _ready() -> void:

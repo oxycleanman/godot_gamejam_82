@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://dj7d6tfhwxv2s"]
+
+[ext_resource type="Shader" uid="uid://b51qliyg5oidm" path="res://assets/shaders/cell_effect_shader_no_cull.gdshader" id="1_pjx52"]
+
+[sub_resource type="Gradient" id="Gradient_t2xhx"]
+offsets = PackedFloat32Array(0.339713, 0.844498)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jcjdg"]
+noise_type = 2
+frequency = 0.0105
+fractal_type = 2
+fractal_weighted_strength = 0.72
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_43t04"]
+seamless = true
+seamless_blend_skirt = 0.562
+color_ramp = SubResource("Gradient_t2xhx")
+noise = SubResource("FastNoiseLite_jcjdg")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_pjx52")
+shader_parameter/Color = Color(0.456674, 0.270325, 0.999988, 1)
+shader_parameter/glow_color = Color(0.162618, 0.519148, 0.860907, 1)
+shader_parameter/dist = 0.0
+shader_parameter/speed = 0.1
+shader_parameter/glow_intensity = 1.5
+shader_parameter/glow_amount = 0.5
+shader_parameter/posMult = 0.3
+shader_parameter/noise = SubResource("NoiseTexture2D_43t04")

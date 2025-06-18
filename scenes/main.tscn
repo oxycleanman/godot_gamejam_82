@@ -19,6 +19,9 @@ script = ExtResource("2_tipki")
 unique_name_in_owner = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.9118, 0, -10.0152)
+fov = 34.8
+size = 9.874
 script = ExtResource("2_o6xl0")
 
 [node name="UI" type="Control" parent="."]

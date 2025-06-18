@@ -3,8 +3,9 @@ class_name Player extends CharacterBody3D
 signal player_disguised(value: bool)
 signal player_disguise_health_changed(new_disguise_health: float)
 
-@export var starting_material_color: Color
-@export var player_material: StandardMaterial3D
+@export var starting_base_color: Color
+@export var starting_glow_color: Color
+@export var player_material: ShaderMaterial
 
 var speed: int = 5
 var drag_when_stopping: float = 0.03
@@ -23,7 +24,8 @@ var max_disguise_health: float = 5.0
 
 func _ready() -> void:
 	Globals.refs[Constants.PLAYER] = self
-	player_material.emission = starting_material_color
+	player_material.set_shader_parameter("Color", starting_base_color)
+	player_material.set_shader_parameter("glow_color", starting_glow_color)
 
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -40,7 +42,9 @@ func _physics_process(delta: float) -> void:
 	
 	if input_vector.is_zero_approx():
 		movement_direction = movement_direction.move_toward(Vector2.ZERO, drag_when_stopping)
+		#player_material.set_shader_parameter("posMult", .05)
 	else:
+		#player_material.set_shader_parameter("posMult", 1.0)
 		movement_direction = input_vector
 		_handle_disguise_degredation(delta)
 	
@@ -63,7 +67,8 @@ func _handle_disguise_degredation(delta: float) -> void:
 	if current_disguise_health == 0.0:
 		currently_disguised = false
 		current_disguise_health = max_disguise_health
-		player_material.emission = starting_material_color
+		player_material.set_shader_parameter("Color", starting_base_color)
+		player_material.set_shader_parameter("glow_color", starting_glow_color)
 
 
 func _bounce_player(normal_from_collision: Vector3) -> void:
@@ -72,26 +77,34 @@ func _bounce_player(normal_from_collision: Vector3) -> void:
 	
 	bouncing_from_collision = true
 	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
-	velocity = velocity.bounce(normal_from_collision) * bounceback_speed
-	movement_direction = movement_direction.bounce(Vector2(normal_from_collision.x, normal_from_collision.y))
+	velocity = velocity.bounce(normal_from_collision.normalized()) * bounceback_speed
+	movement_direction = movement_direction.bounce(Vector2(normal_from_collision.x, normal_from_collision.y).normalized())
 
 
 func disguise_player(color: Color) -> void:
 	currently_disguised = true
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
-	player_material.emission = color
+	player_material.set_shader_parameter("Color", color)
+	player_material.set_shader_parameter("glow_color", color.lightened(0.5))
 
 
 func remove_player_disguise() -> void:
 	currently_disguised = false
-	player_material.emission = starting_material_color
+	player_material.set_shader_parameter("Color", starting_base_color)
+	player_material.set_shader_parameter("glow_color", starting_glow_color)
 
 
-func push_player_back() -> void:
+func push_player_back(push_back_vector: Vector3 = Vector3.ZERO) -> void:
 	if bouncing_from_collision:
 		return
 	
 	bouncing_from_collision = true
 	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
-	velocity = -velocity
-	movement_direction = -movement_direction
+	
+	if push_back_vector == Vector3.ZERO:
+		velocity = -velocity
+		movement_direction = -movement_direction
+	else:
+		print("Push back vector: ", push_back_vector)
+		velocity = push_back_vector
+		movement_direction = Vector2.ZERO

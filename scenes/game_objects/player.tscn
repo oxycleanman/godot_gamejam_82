@@ -1,10 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://fupifwkm20dh"]
 
 [ext_resource type="Script" uid="uid://ce8oopwv4q7hf" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Material" uid="uid://cum15k8wv1a5y" path="res://assets/materials/player_test_material.tres" id="2_g2els"]
+[ext_resource type="Material" uid="uid://080gg2iwyi1v" path="res://assets/materials/red_cell_shader_material.tres" id="2_ne3qo"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
-material = ExtResource("2_g2els")
+material = ExtResource("2_ne3qo")
+radial_segments = 128
+rings = 64
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tefeu"]
 
@@ -15,8 +17,9 @@ motion_mode = 1
 wall_min_slide_angle = 0.174533
 platform_on_leave = 2
 script = ExtResource("1_3vyb7")
-starting_material_color = Color(0, 1, 0, 1)
-player_material = ExtResource("2_g2els")
+starting_base_color = Color(1.81694e-06, 0.426875, 2.88785e-07, 1)
+starting_glow_color = Color(1.10701e-05, 0.988766, 0, 1)
+player_material = ExtResource("2_ne3qo")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_tbgi4")

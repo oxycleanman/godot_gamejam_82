@@ -1,8 +1,6 @@
 class_name LevelManager extends Node
 
-# TODO: make better level loading system
-const TEST_LEVEL: PackedScene = preload("res://scenes/levels/test_level.tscn")
-const LEVEL_TEMPLATE: PackedScene = preload("res://scenes/levels/level_template.tscn")
+const LEVEL_1_1 = preload("res://scenes/levels/level_1_1.tscn")
 
 var current_level_node: Node
 var current_level_index: int = -1
@@ -12,8 +10,7 @@ var game_levels: Array[PackedScene]
 func _ready() -> void:
 	Globals.refs[Constants.LEVEL_MANAGER] = self
 	game_levels = [
-		TEST_LEVEL,
-		LEVEL_TEMPLATE
+		LEVEL_1_1
 	] 
 
 

@@ -2,8 +2,9 @@ class_name Projectile extends AnimatableBody3D
 
 signal projectile_hit_player()
 
-var speed: float = 2.0
+var speed: float = 3.0
 var lifetime_in_seconds: float = 3.0
+var push_back_force: float = 200.0
 var player: Player
 var velocity: Vector3
 
@@ -26,7 +27,9 @@ func _physics_process(delta: float) -> void:
 	var node_collided_with_rid: RID = collision_info.get_collider_rid()
 	
 	if node_collided_with_rid == player.get_rid():
+		print("projectile hit player")
 		projectile_hit_player.emit()
+		player.push_player_back(collision_info.get_travel() * push_back_force)
 		queue_free()
 		return
 		

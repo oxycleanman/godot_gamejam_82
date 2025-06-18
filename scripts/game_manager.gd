@@ -1,10 +1,12 @@
 class_name GameManager extends Node3D
 
+@export var default_starting_lives = 6
+
 @onready var game_world: Node3D = %GameWorld
 var ui_manager: UIManager
 var camera_manager: CameraManager
 var level_manager: LevelManager
-var player_lives: int = 3
+var player_lives: int
 
 
 func _ready() -> void:
@@ -16,6 +18,7 @@ func _ready() -> void:
 
 
 func _start_game() -> void:
+	player_lives = default_starting_lives
 	ui_manager.set_player_lives(player_lives)
 	_advance_level()
 
@@ -52,7 +55,8 @@ func _reset_current_level() -> void:
 	ui_manager.on_goal_reached()
 	await get_tree().create_timer(1.0).timeout
 	_connect_level_interface_signals()
-	ui_manager.set_player_lives(3)
+	player_lives = default_starting_lives
+	ui_manager.set_player_lives(player_lives)
 	game_world.add_child(level_node)
 	camera_manager.on_level_loaded()
 	ui_manager.on_new_level_loaded()
@@ -74,4 +78,3 @@ func _handle_player_hit() -> void:
 	
 	if player_lives <= 0:
 		_reset_current_level()
-		player_lives = 3

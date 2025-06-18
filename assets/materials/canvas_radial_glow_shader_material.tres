@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bjmxxnajqmnsw"]
+
+[ext_resource type="Shader" uid="uid://124snq63ox6s" path="res://assets/shaders/radial_shine.gdshader" id="1_mkard"]
+
+[sub_resource type="Gradient" id="Gradient_k7a4r"]
+offsets = PackedFloat32Array(0, 0.768293)
+colors = PackedColorArray(0, 0, 0, 1, 0.235294, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n2le5"]
+gradient = SubResource("Gradient_k7a4r")
+
+[resource]
+shader = ExtResource("1_mkard")
+shader_parameter/gradient = SubResource("GradientTexture2D_n2le5")
+shader_parameter/spread = 0.8
+shader_parameter/cutoff = 0.9
+shader_parameter/size = 1.2
+shader_parameter/speed = 2.0
+shader_parameter/ray1_density = 10.0
+shader_parameter/ray2_density = 20.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/core_intensity = 1.0
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
