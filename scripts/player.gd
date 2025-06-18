@@ -3,9 +3,12 @@ class_name Player extends CharacterBody3D
 signal player_disguised(value: bool)
 signal player_disguise_health_changed(new_disguise_health: float)
 
+const PLAYER_LIFE_ORB = preload("res://scenes/game_objects/player_life_orb.tscn")
+
 @export var starting_base_color: Color
 @export var starting_glow_color: Color
 @export var player_material: ShaderMaterial
+@export var player_life_orb_material: ShaderMaterial
 
 var speed: int = 5
 var drag_when_stopping: float = 0.03
@@ -21,11 +24,12 @@ var currently_disguised: bool = false:
 var disguise_damage_from_movement: float = 1.0
 var current_disguise_health: float = 5.0
 var max_disguise_health: float = 5.0
+var player_life_orbs: Array[MeshInstance3D] = []
 
 func _ready() -> void:
 	Globals.refs[Constants.PLAYER] = self
-	player_material.set_shader_parameter("Color", starting_base_color)
-	player_material.set_shader_parameter("glow_color", starting_glow_color)
+	_spawn_player_life_orbs()
+	_set_material_colors(starting_base_color, starting_glow_color)
 
 
 func _unhandled_input(_event: InputEvent) -> void:
@@ -69,8 +73,7 @@ func _handle_disguise_degredation(delta: float) -> void:
 	if current_disguise_health == 0.0:
 		currently_disguised = false
 		current_disguise_health = max_disguise_health
-		player_material.set_shader_parameter("Color", starting_base_color)
-		player_material.set_shader_parameter("glow_color", starting_glow_color)
+		_set_material_colors(starting_base_color, starting_glow_color)
 
 
 func _bounce_player(normal_from_collision: Vector3) -> void:
@@ -86,14 +89,12 @@ func _bounce_player(normal_from_collision: Vector3) -> void:
 func disguise_player(color: Color) -> void:
 	currently_disguised = true
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
-	player_material.set_shader_parameter("Color", color)
-	player_material.set_shader_parameter("glow_color", color.lightened(0.5))
+	_set_material_colors(color, color.lightened(0.5))
 
 
 func remove_player_disguise() -> void:
 	currently_disguised = false
-	player_material.set_shader_parameter("Color", starting_base_color)
-	player_material.set_shader_parameter("glow_color", starting_glow_color)
+	_set_material_colors(starting_base_color, starting_glow_color)
 
 
 func push_player_back(push_back_vector: Vector3 = Vector3.ZERO) -> void:
@@ -110,3 +111,43 @@ func push_player_back(push_back_vector: Vector3 = Vector3.ZERO) -> void:
 		print("Push back vector: ", push_back_vector)
 		velocity = push_back_vector
 		movement_direction = Vector2.ZERO
+
+
+func _set_material_colors(color: Color, glow_color: Color) -> void:
+	player_material.set_shader_parameter("Color", color)
+	player_material.set_shader_parameter("glow_color", glow_color)
+	player_life_orb_material.set_shader_parameter("Color", color)
+	player_life_orb_material.set_shader_parameter("glow_color", glow_color)
+
+
+func _spawn_player_life_orbs() -> void:
+	var counter: int = 0;
+	while counter <= 5:
+		var position_vector: Vector3
+		match counter:
+			0:
+				position_vector = Vector3.MODEL_TOP
+			1:
+				position_vector = Vector3.MODEL_BOTTOM
+			2:
+				position_vector = Vector3.MODEL_LEFT
+			3:
+				position_vector = Vector3.MODEL_RIGHT
+			4:
+				position_vector = Vector3.MODEL_FRONT
+			5:
+				position_vector = Vector3.MODEL_REAR
+		var new_life_orb_node: Node3D = PLAYER_LIFE_ORB.instantiate()
+		add_child(new_life_orb_node)
+		new_life_orb_node.global_transform = global_transform.translated(position_vector * 0.7)
+		player_life_orb_material.set_shader_parameter("Color", player_material.get_shader_parameter("Color"))
+		player_life_orb_material.set_shader_parameter("glow_color", player_material.get_shader_parameter("glow_color"))
+		player_life_orbs.append(new_life_orb_node)
+		counter += 1
+
+
+func hide_life_orb() -> void:
+	for life_orb_node: Node3D in player_life_orbs:
+		if life_orb_node.visible:
+			life_orb_node.visible = false
+			return
