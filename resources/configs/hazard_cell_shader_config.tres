@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CellShaderConfig" load_steps=2 format=3 uid="uid://ne7pnehapcua"]
+
+[ext_resource type="Script" uid="uid://cigdalt4m5dmx" path="res://resources/cell_shader_config.gd" id="1_dr53d"]
+
+[resource]
+script = ExtResource("1_dr53d")
+primary_color = Color(0.796078, 0.470588, 0, 1)
+rim_color = Color(0.8, 0.733333, 0, 1)
+core_transparency = 0.0
+effect_speed = 0.1
+rim_glow_intensity = 2.0
+rim_glow_amount = 0.5
+mesh_displacement_amount = 0.05
+metadata/_custom_type_script = "uid://cigdalt4m5dmx"

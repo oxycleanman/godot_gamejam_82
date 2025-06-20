@@ -5,7 +5,7 @@ signal projectile_hit_player()
 @onready var cell_death_effect: GPUParticles3D = %CellDeathEffect
 @onready var projectile_mesh: MeshInstance3D = %ProjectileMesh
 
-@export var cell_color: Color = Color.AQUA
+@export var material_config: CellShaderConfig
 
 var speed: float = 3.0
 var lifetime_in_seconds: float = 3.0
@@ -17,6 +17,7 @@ var exploding: bool = false
 
 func _ready() -> void:
 	player = Globals.refs[Constants.PLAYER]
+	Helpers.set_shader_instance_params(projectile_mesh, material_config)
 	velocity = global_position * speed
 	get_tree().create_timer(lifetime_in_seconds).timeout.connect(_handle_lifetime_end)
 
@@ -52,7 +53,7 @@ func _handle_impact_tween() -> void:
 
 func _handle_death_effect() -> void:
 	projectile_mesh.visible = false
-	cell_death_effect.draw_pass_1.material.set_shader_parameter("Color", cell_color)
+	cell_death_effect.draw_pass_1.material.set_shader_parameter("Color", material_config.primary_color)
 	cell_death_effect.emitting = true
 	cell_death_effect.finished.connect(func() -> void: queue_free())
 

@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	
+	DebugDraw3D.draw_box(global_position, Quaternion.IDENTITY, Vector3.ONE, Color.RED)
 	var new_position: Vector3 = global_position.move_toward(player.global_position, camera_move_speed * delta)
 	if new_position.is_zero_approx():
 		return

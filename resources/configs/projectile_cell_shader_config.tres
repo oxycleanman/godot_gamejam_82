@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CellShaderConfig" load_steps=2 format=3 uid="uid://cyi52as2ionye"]
+
+[ext_resource type="Script" uid="uid://cigdalt4m5dmx" path="res://resources/cell_shader_config.gd" id="1_pegpl"]
+
+[resource]
+script = ExtResource("1_pegpl")
+primary_color = Color(0.537255, 0.45098, 1, 1)
+rim_color = Color(0.176471, 0.533333, 0.878431, 1)
+core_transparency = 0.0
+effect_speed = 0.3
+rim_glow_intensity = 1.5
+rim_glow_amount = 0.5
+mesh_displacement_amount = 0.15
+metadata/_custom_type_script = "uid://cigdalt4m5dmx"

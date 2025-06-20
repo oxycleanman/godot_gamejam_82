@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8qaju20oncuj"]
 
-[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_death_shader_material.tres" id="1_v6sgk"]
+[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="1_v6sgk"]
 
 [sub_resource type="Curve" id="Curve_uex7a"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0306358), -3.10597, 0.0, 0, 0]

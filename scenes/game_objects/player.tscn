@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://fupifwkm20dh"]
 
 [ext_resource type="Script" uid="uid://ce8oopwv4q7hf" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_death_shader_material.tres" id="2_6qfcv"]
-[ext_resource type="Material" uid="uid://d087omcfa72vx" path="res://assets/materials/player_life_orb_shader_material.tres" id="3_6qfcv"]
+[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="2_6qfcv"]
+[ext_resource type="Resource" uid="uid://4jk8ura1ce2n" path="res://resources/configs/player_cell_shader_config.tres" id="2_jlhh2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
 material = ExtResource("2_6qfcv")
@@ -18,12 +18,10 @@ motion_mode = 1
 wall_min_slide_angle = 0.174533
 platform_on_leave = 2
 script = ExtResource("1_3vyb7")
-starting_base_color = Color(1.81694e-06, 0.426875, 2.88785e-07, 1)
-starting_glow_color = Color(1.10701e-05, 0.988766, 0, 1)
-player_material = ExtResource("2_6qfcv")
-player_life_orb_material = ExtResource("3_6qfcv")
+material_config = ExtResource("2_jlhh2")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("SphereMesh_tbgi4")
 skeleton = NodePath("../..")
 

@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8mrxhl05qg42"]
-
-[ext_resource type="PackedScene" uid="uid://cdd6bovmickcd" path="res://assets/levels/level_1_1_mesh.glb" id="1_jguv4"]
-[ext_resource type="Material" uid="uid://d4fdja00kontb" path="res://assets/materials/wall_shader_material.tres" id="2_ptx63"]
-
-[node name="level_1_1_mesh" instance=ExtResource("1_jguv4")]
-
-[node name="Curve_Base_005" parent="." index="0"]
-material_override = ExtResource("2_ptx63")

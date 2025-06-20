@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://wi8lt5sj2ick"]
+[gd_scene load_steps=7 format=3 uid="uid://wi8lt5sj2ick"]
 
 [ext_resource type="Script" uid="uid://csgfqw4t2p5ed" path="res://scripts/projectile.gd" id="1_feyxv"]
-[ext_resource type="Material" uid="uid://cpoxkt6l6v6am" path="res://assets/materials/projectile_shader_material.tres" id="2_4e6bl"]
 [ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="2_khkg0"]
+[ext_resource type="Resource" uid="uid://cyi52as2ionye" path="res://resources/configs/projectile_cell_shader_config.tres" id="2_wehbh"]
+[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="4_wehbh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_feyxv"]
-material = ExtResource("2_4e6bl")
+material = ExtResource("4_wehbh")
 radius = 0.25
 height = 0.5
 radial_segments = 32
@@ -18,7 +19,7 @@ points = PackedVector3Array(-0.248934, -0.023101, -4.87268e-05, -0.244158, -0.02
 collision_mask = 6
 sync_to_physics = false
 script = ExtResource("1_feyxv")
-cell_color = Color(0.537255, 0.45098, 1, 1)
+material_config = ExtResource("2_wehbh")
 
 [node name="CellDeathEffect" parent="." instance=ExtResource("2_khkg0")]
 unique_name_in_owner = true

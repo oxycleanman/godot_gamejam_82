@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://opmcclhr70e0"]
+[gd_scene load_steps=4 format=3 uid="uid://opmcclhr70e0"]
 
 [ext_resource type="Script" uid="uid://bhkabxgiuekbi" path="res://scripts/detector.gd" id="1_edrlx"]
+[ext_resource type="Resource" uid="uid://ne7pnehapcua" path="res://resources/configs/hazard_cell_shader_config.tres" id="2_bxa7v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o6xl0"]
 radius = 4.33303
@@ -9,6 +10,7 @@ radius = 4.33303
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_edrlx")
+material_config = ExtResource("2_bxa7v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_o6xl0")

@@ -2,13 +2,13 @@ shader_type spatial;
 
 render_mode unshaded, cull_back;
 
-uniform vec3 Color: source_color;
-uniform vec3 glow_color: source_color;
-uniform float dist;
-uniform float speed;
-uniform float glow_intensity;
-uniform float glow_amount;
-uniform float posMult;
+instance uniform vec3 Color: source_color;
+instance uniform vec3 glow_color: source_color;
+instance uniform float dist;
+instance uniform float speed;
+instance uniform float glow_intensity;
+instance uniform float glow_amount;
+instance uniform float posMult;
 uniform sampler2D noise: repeat_enable;
 
 void vertex()

@@ -4,7 +4,16 @@ signal detected_player()
 signal player_reached_goal()
 signal player_hit_hazard()
 
+var mesh_instance_3d: MeshInstance3D
+
 @export_enum("Alert", "Collectable", "Goal", "Hazard") var detector_type: String
+@export var material_config: CellShaderConfig
+
+
+func _ready() -> void:
+	mesh_instance_3d = get_node_or_null("%MeshInstance3D")
+	if mesh_instance_3d != null:
+		Helpers.set_shader_instance_params(mesh_instance_3d, material_config)
 
 
 func _on_body_entered(body: Node3D) -> void:

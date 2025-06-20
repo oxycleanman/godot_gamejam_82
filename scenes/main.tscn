@@ -29,7 +29,6 @@ script = ExtResource("2_tipki")
 unique_name_in_owner = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.9118, 0, -10.0152)
 fov = 35.0
 size = 9.874
 script = ExtResource("2_o6xl0")
@@ -81,5 +80,9 @@ layout_mode = 1
 [node name="MainMenuScreen" parent="UI" instance=ExtResource("9_85g3d")]
 unique_name_in_owner = true
 layout_mode = 1
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.684025, 0, 0.729458, 0, 1, 0, -0.729458, 0, 0.684025, 61.8859, 0, 27.6071)
+current = true
 
 [connection signal="start_game_clicked" from="UI/MainMenuScreen" to="." method="_on_main_menu_screen_start_game_clicked"]

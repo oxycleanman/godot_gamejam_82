@@ -4,9 +4,12 @@ signal detected_player()
 
 @onready var visible_scan_area: MeshInstance3D = %VisibleScanArea
 @onready var visual_detector: Area3D = %VisualDetector
+@onready var mesh: MeshInstance3D = %Body
 
 @export var move_distance: float = 10.0
 @export var move_speed: float = 2.0
+@export var material_config: CellShaderConfig
+
 var distance_moved: float = 0.0
 var velocity: Vector3
 var target_rotated_basis: Basis
@@ -14,6 +17,7 @@ var rotation_tween: Tween
 var scanning: bool = false
 
 func _ready() -> void:
+	Helpers.set_shader_instance_params(mesh, material_config)
 	visible_scan_area.visible = false
 
 func _physics_process(delta: float) -> void:

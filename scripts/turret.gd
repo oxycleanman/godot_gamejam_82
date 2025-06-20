@@ -5,13 +5,16 @@ signal fired_projectile(projectile: Projectile)
 const PROJECTILE: PackedScene = preload("res://scenes/game_objects/projectile.tscn")
 
 @onready var projectile_spawn_point: Marker3D = %ProjectileSpawnPoint
+@onready var mesh: MeshInstance3D = %Mesh
 
 @export var detection_distance: float = 50.0
+@export var material_config: CellShaderConfig
 
 var player: Player
 var projectile: Projectile
 
 func _ready() -> void:
+	Helpers.set_shader_instance_params(mesh, material_config)
 	_setup.call_deferred()
 
 

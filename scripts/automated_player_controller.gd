@@ -23,7 +23,7 @@ func _setup() -> void:
 	current_target_move_position = move_positions.front()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_moving or move_positions.is_empty():
 		return
 	

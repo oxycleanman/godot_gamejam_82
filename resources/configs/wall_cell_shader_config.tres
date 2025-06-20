@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CellShaderConfig" load_steps=2 format=3 uid="uid://db7iu8jh4u4fe"]
+
+[ext_resource type="Script" uid="uid://cigdalt4m5dmx" path="res://resources/cell_shader_config.gd" id="1_psx12"]
+
+[resource]
+script = ExtResource("1_psx12")
+primary_color = Color(0.466667, 0, 0.00392157, 1)
+rim_color = Color(0.717647, 0, 0, 1)
+core_transparency = 0.0
+effect_speed = 0.2
+rim_glow_intensity = 2.5
+rim_glow_amount = 0.9
+mesh_displacement_amount = 0.007
+metadata/_custom_type_script = "uid://cigdalt4m5dmx"

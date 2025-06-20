@@ -1,10 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://7mnpts8lt0nc"]
+[gd_scene load_steps=6 format=3 uid="uid://7mnpts8lt0nc"]
 
 [ext_resource type="Script" uid="uid://evbenayimc0i" path="res://scripts/turret.gd" id="1_j40cd"]
-[ext_resource type="Material" uid="uid://dj7d6tfhwxv2s" path="res://assets/materials/turrett_shader_material.tres" id="2_a5bpn"]
+[ext_resource type="Resource" uid="uid://oojd74siic2v" path="res://resources/configs/white_cell_shader_config.tres" id="2_5k3bv"]
+[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="3_drqaj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5k3bv"]
-material = ExtResource("2_a5bpn")
+material = ExtResource("3_drqaj")
 radius = 1.0
 rings = 32
 
@@ -13,8 +14,10 @@ points = PackedVector3Array(0, 0.5, 0.5, 0.5, -0.5, 0.5, 0, 0.5, -0.5, -0.5, -0.
 
 [node name="Turret" type="StaticBody3D"]
 script = ExtResource("1_j40cd")
+material_config = ExtResource("2_5k3bv")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("CapsuleMesh_5k3bv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

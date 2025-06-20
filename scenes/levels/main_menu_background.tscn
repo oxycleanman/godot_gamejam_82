@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://t4k7geqpgnol"]
+[gd_scene load_steps=10 format=3 uid="uid://t4k7geqpgnol"]
 
 [ext_resource type="Script" uid="uid://b83uv1va2hfvr" path="res://scripts/level_interface.gd" id="1_1m06c"]
 [ext_resource type="Script" uid="uid://cf1kpx4rnrncd" path="res://scripts/automated_player_controller.gd" id="2_lyakx"]
-[ext_resource type="Environment" uid="uid://b2sg2q3fjpy7h" path="res://assets/levels/level_1_environment.tres" id="3_p2pxp"]
+[ext_resource type="Environment" uid="uid://b2sg2q3fjpy7h" path="res://assets/level_meshes/level_1_environment.tres" id="3_p2pxp"]
 [ext_resource type="PackedScene" uid="uid://fupifwkm20dh" path="res://scenes/game_objects/player.tscn" id="4_1g2p2"]
-[ext_resource type="PackedScene" uid="uid://cmlgjhe071b4x" path="res://scenes/levels/main_menu_background_boundary.tscn" id="5_5jyjm"]
+[ext_resource type="PackedScene" uid="uid://c3qlwdxnhkgcw" path="res://assets/level_meshes/main_menu_background_level_mesh.glb" id="5_1m06c"]
+[ext_resource type="Material" uid="uid://d4fdja00kontb" path="res://assets/materials/wall_shader_material.tres" id="6_lyakx"]
 [ext_resource type="PackedScene" uid="uid://ddwv24jq6mga0" path="res://scenes/game_objects/disguise.tscn" id="6_m5xfe"]
 [ext_resource type="PackedScene" uid="uid://opmcclhr70e0" path="res://scenes/game_objects/detector.tscn" id="7_daicv"]
 [ext_resource type="PackedScene" uid="uid://7mnpts8lt0nc" path="res://scenes/game_objects/turret.tscn" id="8_6krla"]
@@ -67,13 +68,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4561, 11.6874, 0)
 
 [node name="Walls" type="Node3D" parent="."]
 
-[node name="main_screen_background_mesh" parent="Walls" instance=ExtResource("5_5jyjm")]
+[node name="LevelBoundary" type="StaticBody3D" parent="Walls"]
+
+[node name="main_menu_background_level_mesh" parent="Walls/LevelBoundary" instance=ExtResource("5_1m06c")]
+
+[node name="Final_Mesh" parent="Walls/LevelBoundary/main_menu_background_level_mesh" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 39.5506, 0)
+material_override = ExtResource("6_lyakx")
 
 [node name="Pickups" type="Node3D" parent="."]
 
 [node name="Disguise" parent="Pickups" instance=ExtResource("6_m5xfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3257, 4.36037, 0)
-skeleton = NodePath("../../..")
 
 [node name="Detectors" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -90,3 +96,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12569, -3.69803, 0)
 
 [node name="Turret2" parent="Enemies" instance=ExtResource("8_6krla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9978, -8.7564, 0)
+
+[editable path="Walls/LevelBoundary/main_menu_background_level_mesh"]
