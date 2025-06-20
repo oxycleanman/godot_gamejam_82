@@ -18,7 +18,7 @@ color_ramp = SubResource("Gradient_t2xhx")
 noise = SubResource("FastNoiseLite_jcjdg")
 
 [resource]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_pjx52")
 shader_parameter/Color = Color(0.456674, 0.270325, 0.999988, 1)
 shader_parameter/glow_color = Color(0.162618, 0.519148, 0.860907, 1)

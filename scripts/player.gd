@@ -3,7 +3,8 @@ class_name Player extends CharacterBody3D
 signal player_disguised(value: bool)
 signal player_disguise_health_changed(new_disguise_health: float)
 
-const PLAYER_LIFE_ORB = preload("res://scenes/game_objects/player_life_orb.tscn")
+const PLAYER_LIFE_ORB: PackedScene = preload("res://scenes/game_objects/player_life_orb.tscn")
+const ROTATION_SPEED: float = 1.2
 
 @export var starting_base_color: Color
 @export var starting_glow_color: Color
@@ -14,6 +15,7 @@ var speed: int = 5
 var drag_when_stopping: float = 0.03
 var input_vector: Vector2 = Vector2.ZERO
 var movement_direction: Vector2 = Vector2.ZERO
+var movement_currently_allowed: bool = true
 var bouncing_from_collision: bool = false
 var bounceback_speed: float = 1.5
 var bounceback_input_delay: float = 0.3
@@ -25,6 +27,7 @@ var disguise_damage_from_movement: float = 1.0
 var current_disguise_health: float = 5.0
 var max_disguise_health: float = 5.0
 var player_life_orbs: Array[MeshInstance3D] = []
+var life_orbs_visible: int = 0
 
 func _ready() -> void:
 	Globals.refs[Constants.PLAYER] = self
@@ -33,7 +36,16 @@ func _ready() -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
+	if not movement_currently_allowed:
+		return
+	
 	input_vector = Input.get_vector(Constants.MOVE_LEFT, Constants.MOVE_RIGHT, Constants.MOVE_DOWN, Constants.MOVE_UP)
+
+
+func _process(delta: float) -> void:
+		rotate_y(delta * ROTATION_SPEED * input_vector.normalized().y)
+		rotate_x(delta * ROTATION_SPEED * input_vector.normalized().x)
+		rotate_z(delta * ROTATION_SPEED)
 
 
 func _physics_process(delta: float) -> void:		
@@ -46,18 +58,18 @@ func _physics_process(delta: float) -> void:
 	
 	if input_vector.is_zero_approx():
 		movement_direction = movement_direction.move_toward(Vector2.ZERO, drag_when_stopping)
-		#player_material.set_shader_parameter("posMult", .05)
 	else:
-		#player_material.set_shader_parameter("posMult", 1.0)
-		movement_direction = input_vector
-		rotate_object_local(Vector3.UP, delta * movement_direction.x * speed)
-		rotate_object_local(Vector3.LEFT, delta * movement_direction.y * speed)
+		movement_direction = input_vector.normalized()
 		_handle_disguise_degredation(delta)
 	
 	if not collided_during_movement:
 		velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
 		return
 	
+	var collided_with_node: Node = get_last_slide_collision().get_collider()
+	if collided_with_node is Disguise:
+		collided_with_node.on_collided_with_player()
+		
 	var collision_normal: Vector3 = get_last_slide_collision().get_normal()
 	_bounce_player(collision_normal)
 
@@ -143,6 +155,7 @@ func _spawn_player_life_orbs() -> void:
 		player_life_orb_material.set_shader_parameter("Color", player_material.get_shader_parameter("Color"))
 		player_life_orb_material.set_shader_parameter("glow_color", player_material.get_shader_parameter("glow_color"))
 		player_life_orbs.append(new_life_orb_node)
+		life_orbs_visible += 1
 		counter += 1
 
 
@@ -151,3 +164,31 @@ func hide_life_orb() -> void:
 		if life_orb_node.visible:
 			life_orb_node.visible = false
 			return
+
+
+func set_visible_life_orbs(number_to_show: int) -> void:
+	if life_orbs_visible == number_to_show:
+		return
+	
+	if number_to_show > life_orbs_visible:
+		var orbs_to_show: int = number_to_show - life_orbs_visible
+		for life_orb_node: Node3D in player_life_orbs:
+			if life_orb_node.visible:
+				continue
+			life_orb_node.visible = true
+			orbs_to_show -= 1
+			if orbs_to_show == 0:
+				break
+	else:
+		var orbs_to_hide: int = life_orbs_visible - number_to_show
+		for life_orb_node: Node3D in player_life_orbs:
+			if not life_orb_node.visible:
+				continue
+			life_orb_node.visible = false
+			orbs_to_hide -= 1
+			if orbs_to_hide == 0:
+				break
+
+
+func set_movement_currently_allowed(value: bool) -> void:
+	movement_currently_allowed = value

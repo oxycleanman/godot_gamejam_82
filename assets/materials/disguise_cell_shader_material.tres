@@ -16,7 +16,7 @@ normalize = false
 noise = SubResource("FastNoiseLite_i8u5e")
 
 [resource]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_qy7oo")
 shader_parameter/Color = Color(0.358842, 3.18265e-06, 0.0029387, 1)
 shader_parameter/glow_color = Color(1, 0.335514, 0.269595, 1)

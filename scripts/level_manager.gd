@@ -1,6 +1,7 @@
 class_name LevelManager extends Node
 
 const LEVEL_1_1 = preload("res://scenes/levels/level_1_1.tscn")
+const MAIN_MENU_BACKGROUND = preload("res://scenes/levels/main_menu_background.tscn")
 
 var current_level_node: Node
 var current_level_index: int = -1
@@ -10,6 +11,7 @@ var game_levels: Array[PackedScene]
 func _ready() -> void:
 	Globals.refs[Constants.LEVEL_MANAGER] = self
 	game_levels = [
+		MAIN_MENU_BACKGROUND,
 		LEVEL_1_1
 	] 
 

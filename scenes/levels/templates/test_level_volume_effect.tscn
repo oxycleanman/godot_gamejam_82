@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://0vxix6k6ixg7"]
 
-[ext_resource type="PackedScene" uid="uid://b83b7sce1umr3" path="res://assets/test_level_from_blender.glb" id="1_dqvre"]
+[ext_resource type="PackedScene" uid="uid://b83b7sce1umr3" path="res://assets/levels/test_level_from_blender.glb" id="1_dqvre"]
 [ext_resource type="Material" uid="uid://ba87552vvjj57" path="res://assets/materials/test_water_shader_material.tres" id="2_me3wd"]
 
 [node name="test_level_from_blender" instance=ExtResource("1_dqvre")]

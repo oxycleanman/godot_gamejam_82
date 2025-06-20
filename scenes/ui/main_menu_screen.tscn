@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://bai1x3jvs45xa"]
+
+[ext_resource type="Script" uid="uid://b6yc530kdhe21" path="res://scripts/main_menu_screen_manager.gd" id="1_qjoqk"]
+
+[node name="MainMenuScreen" type="MarginContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qjoqk")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleMarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_bottom = 40
+
+[node name="MainTitleText" type="RichTextLabel" parent="HBoxContainer/TitleMarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 48
+text = "Placeholder Title"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonMarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="StartButton" type="Button" parent="HBoxContainer/ButtonMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Start Game"
+
+[connection signal="pressed" from="HBoxContainer/ButtonMarginContainer/StartButton" to="." method="_on_start_button_pressed"]

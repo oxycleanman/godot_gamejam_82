@@ -8,6 +8,7 @@ var camera_manager: CameraManager
 var level_manager: LevelManager
 var player_lives: int
 var player: Player
+var ready_to_start_gameplay: bool = false
 
 
 func _ready() -> void:
@@ -29,6 +30,7 @@ func _advance_level() -> void:
 	game_world.add_child(new_level)
 	_connect_level_interface_signals()
 	player = Globals.refs[Constants.PLAYER]
+	player.set_visible_life_orbs(player_lives - 1) # Player's last life is the primary mesh with no orbs 
 	camera_manager.on_level_loaded()
 	ui_manager.on_new_level_loaded()
 
@@ -44,6 +46,15 @@ func _connect_level_interface_signals() -> void:
 
 
 func _handle_goal_reached() -> void:
+	# the background of the main menu is a level being played by a script
+	# every time the automated player reaches the end, reload the same level
+	# until the "start game" button is clicked
+	if not ready_to_start_gameplay:
+		_reset_current_level(false)
+		return
+	
+	camera_manager.fade_to_black(1.5)
+	await camera_manager.fade_complete
 	level_manager.teardown_current_level()
 	_cleanup_game_world()
 	ui_manager.on_goal_reached()
@@ -51,10 +62,12 @@ func _handle_goal_reached() -> void:
 	_advance_level()
 
 
-func _reset_current_level() -> void:
+func _reset_current_level(show_loading_message: bool = true) -> void:
+	camera_manager.fade_to_black(1.5)
+	await camera_manager.fade_complete
 	var level_node: Node = level_manager.reload_current_level()
 	_cleanup_game_world()
-	ui_manager.on_goal_reached()
+	ui_manager.on_goal_reached(show_loading_message)
 	await get_tree().create_timer(1.0).timeout
 	_connect_level_interface_signals()
 	player_lives = default_starting_lives
@@ -82,3 +95,9 @@ func _handle_player_hit() -> void:
 	
 	if player_lives <= 0:
 		_reset_current_level()
+
+
+func _on_main_menu_screen_start_game_clicked() -> void:
+	ready_to_start_gameplay = true
+	ui_manager.set_should_show_main_menu(false)
+	_handle_goal_reached()

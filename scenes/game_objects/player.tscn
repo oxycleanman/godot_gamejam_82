@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://fupifwkm20dh"]
 
 [ext_resource type="Script" uid="uid://ce8oopwv4q7hf" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Material" uid="uid://080gg2iwyi1v" path="res://assets/materials/red_cell_shader_material.tres" id="2_ne3qo"]
+[ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_death_shader_material.tres" id="2_6qfcv"]
 [ext_resource type="Material" uid="uid://d087omcfa72vx" path="res://assets/materials/player_life_orb_shader_material.tres" id="3_6qfcv"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
-material = ExtResource("2_ne3qo")
+material = ExtResource("2_6qfcv")
 radial_segments = 128
 rings = 64
 
@@ -20,7 +20,7 @@ platform_on_leave = 2
 script = ExtResource("1_3vyb7")
 starting_base_color = Color(1.81694e-06, 0.426875, 2.88785e-07, 1)
 starting_glow_color = Color(1.10701e-05, 0.988766, 0, 1)
-player_material = ExtResource("2_ne3qo")
+player_material = ExtResource("2_6qfcv")
 player_life_orb_material = ExtResource("3_6qfcv")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]

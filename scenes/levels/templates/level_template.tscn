@@ -41,45 +41,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.1539, 9.16801, 0)
 [node name="Wall" parent="Walls" instance=ExtResource("2_amll8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42833, 0.888653, 0)
 
-[node name="Wall2" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20698, 0, 0)
-
-[node name="Wall3" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.20698, 9.88818, 0)
-
-[node name="Wall10" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0801, 9.88818, 0)
-
-[node name="Wall11" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0801, 19.3905, 0)
-
-[node name="Wall12" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6593, 19.3905, 0)
-
-[node name="Wall4" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.185786, 14.3625, 0)
-
-[node name="Wall14" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.25079, -4.49316, 0)
-
-[node name="Wall6" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 9.39373, 14.3625, 0)
-
-[node name="Wall7" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 19.1688, 14.3625, 0)
-
-[node name="Wall5" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 7.43191, 5.36826, 0.00232983)
-
-[node name="Wall8" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 17.174, 5.36826, 0.00232983)
-
-[node name="Wall9" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 26.7444, 5.36826, 0.00232983)
-
-[node name="Wall13" parent="Walls" instance=ExtResource("2_amll8")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 27.7185, 24.0813, 0.00232983)
-
 [node name="Pickups" type="Node3D" parent="."]
 
 [node name="Disguise" parent="Pickups" instance=ExtResource("3_770am")]
