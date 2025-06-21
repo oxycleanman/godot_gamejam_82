@@ -4,12 +4,14 @@ class_name Disguise extends Node3D
 @onready var cell_mesh: MeshInstance3D = %CellMesh
 
 @export var material_config: CellShaderConfig
+@export var particle_material_config: CellShaderConfig
 
 var player: Player
 
 
 func _ready() -> void:
 	Helpers.set_shader_instance_params(cell_mesh, material_config)
+	Helpers.set_shader_instance_params(death_particle_effect, particle_material_config)
 	_setup.call_deferred()
 
 

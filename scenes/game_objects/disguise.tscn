@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddwv24jq6mga0"]
+[gd_scene load_steps=8 format=3 uid="uid://ddwv24jq6mga0"]
 
 [ext_resource type="Resource" uid="uid://cg674l0qsiwhi" path="res://resources/configs/red_cell_shader_config.tres" id="2_2cdxp"]
 [ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="2_kqfr0"]
 [ext_resource type="Script" uid="uid://bhk3n0trj00vh" path="res://scripts/disguise.gd" id="2_ljmlm"]
 [ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="3_kqfr0"]
+[ext_resource type="Resource" uid="uid://c7qf1im4hke1q" path="res://resources/configs/red_cell_death_shader_config.tres" id="3_psv4p"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tefeu"]
 material = ExtResource("2_kqfr0")
@@ -14,6 +15,7 @@ points = PackedVector3Array(-0.499434, -0.0238842, 0, -0.497087, -0.0238842, 0.0
 [node name="Disguise" type="AnimatableBody3D"]
 script = ExtResource("2_ljmlm")
 material_config = ExtResource("2_2cdxp")
+particle_material_config = ExtResource("3_psv4p")
 
 [node name="CellMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true

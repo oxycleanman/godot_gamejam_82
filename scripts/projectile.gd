@@ -6,6 +6,7 @@ signal projectile_hit_player()
 @onready var projectile_mesh: MeshInstance3D = %ProjectileMesh
 
 @export var material_config: CellShaderConfig
+@export var particle_material_config: CellShaderConfig
 
 var speed: float = 3.0
 var lifetime_in_seconds: float = 3.0
@@ -18,6 +19,7 @@ var exploding: bool = false
 func _ready() -> void:
 	player = Globals.refs[Constants.PLAYER]
 	Helpers.set_shader_instance_params(projectile_mesh, material_config)
+	Helpers.set_shader_instance_params(cell_death_effect, particle_material_config)
 	velocity = global_position * speed
 	get_tree().create_timer(lifetime_in_seconds).timeout.connect(_handle_lifetime_end)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://wi8lt5sj2ick"]
+[gd_scene load_steps=8 format=3 uid="uid://wi8lt5sj2ick"]
 
 [ext_resource type="Script" uid="uid://csgfqw4t2p5ed" path="res://scripts/projectile.gd" id="1_feyxv"]
 [ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="2_khkg0"]
 [ext_resource type="Resource" uid="uid://cyi52as2ionye" path="res://resources/configs/projectile_cell_shader_config.tres" id="2_wehbh"]
+[ext_resource type="Resource" uid="uid://bt2j7d1il5k66" path="res://resources/configs/projectile_death_shader_config.tres" id="3_byuv6"]
 [ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="4_wehbh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_feyxv"]
@@ -20,6 +21,7 @@ collision_mask = 6
 sync_to_physics = false
 script = ExtResource("1_feyxv")
 material_config = ExtResource("2_wehbh")
+particle_material_config = ExtResource("3_byuv6")
 
 [node name="CellDeathEffect" parent="." instance=ExtResource("2_khkg0")]
 unique_name_in_owner = true

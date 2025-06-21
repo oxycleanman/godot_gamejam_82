@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://fupifwkm20dh"]
+[gd_scene load_steps=7 format=3 uid="uid://fupifwkm20dh"]
 
 [ext_resource type="Script" uid="uid://ce8oopwv4q7hf" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="2_6qfcv"]
 [ext_resource type="Resource" uid="uid://4jk8ura1ce2n" path="res://resources/configs/player_cell_shader_config.tres" id="2_jlhh2"]
+[ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="4_jlhh2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
 material = ExtResource("2_6qfcv")
@@ -14,6 +15,7 @@ rings = 64
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 7
+axis_lock_linear_z = true
 motion_mode = 1
 wall_min_slide_angle = 0.174533
 platform_on_leave = 2
@@ -27,3 +29,5 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_tefeu")
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("4_jlhh2")]
