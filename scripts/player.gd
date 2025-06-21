@@ -78,8 +78,10 @@ func _physics_process(delta: float) -> void:
 	if collided_with_node is Disguise:
 		collided_with_node.on_collided_with_player()
 		
-	var collision_normal: Vector3 = get_last_slide_collision().get_normal()
-	_bounce_player(collision_normal)
+	velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
+		
+	#var collision_normal: Vector3 = get_last_slide_collision().get_normal()
+	#_bounce_player(collision_normal)
 
 
 func _handle_disguise_degredation(delta: float) -> void:
@@ -102,7 +104,7 @@ func _bounce_player(normal_from_collision: Vector3) -> void:
 	
 	bouncing_from_collision = true
 	get_tree().create_timer(bounceback_input_delay).timeout.connect(func() -> void: bouncing_from_collision = false)
-	velocity = velocity.bounce(normal_from_collision.normalized()) * bounceback_speed
+	velocity = velocity.bounce(normal_from_collision.normalized())
 	movement_direction = movement_direction.bounce(Vector2(normal_from_collision.x, normal_from_collision.y).normalized())
 
 

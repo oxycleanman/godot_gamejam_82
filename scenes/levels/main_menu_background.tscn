@@ -68,11 +68,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4561, 11.6874, 0)
 
 [node name="Walls" type="Node3D" parent="."]
 
-[node name="LevelBoundary" type="StaticBody3D" parent="Walls"]
+[node name="main_menu_background_level_mesh" parent="Walls" instance=ExtResource("5_1m06c")]
 
-[node name="main_menu_background_level_mesh" parent="Walls/LevelBoundary" instance=ExtResource("5_1m06c")]
-
-[node name="Final_Mesh" parent="Walls/LevelBoundary/main_menu_background_level_mesh" index="0"]
+[node name="Final_Mesh" parent="Walls/main_menu_background_level_mesh" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 39.5506, 0)
 material_override = ExtResource("6_lyakx")
 
@@ -97,4 +95,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12569, -3.69803, 0)
 [node name="Turret2" parent="Enemies" instance=ExtResource("8_6krla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9978, -8.7564, 0)
 
-[editable path="Walls/LevelBoundary/main_menu_background_level_mesh"]
+[editable path="Walls/main_menu_background_level_mesh"]

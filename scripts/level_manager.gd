@@ -14,7 +14,6 @@ func _ready() -> void:
 	Globals.refs[Constants.LEVEL_MANAGER] = self
 	game_levels = [
 		MAIN_MENU_BACKGROUND,
-		LEVEL_1_1,
 		LEVEL_1_2,
 		LEVEL_1_3
 	] 
@@ -28,7 +27,7 @@ func advance_level() -> Node:
 
 
 func reload_current_level() -> Node:
-	current_level_node.queue_free()
+	teardown_current_level()
 	_load_level()
 	return current_level_node
 

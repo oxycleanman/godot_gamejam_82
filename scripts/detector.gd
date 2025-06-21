@@ -9,8 +9,13 @@ var mesh_instance_3d: MeshInstance3D
 @export_enum("Alert", "Collectable", "Goal", "Hazard") var detector_type: String
 @export var material_config: CellShaderConfig
 
+@onready var goal_particle_effect: GPUParticles3D = %GoalParticleEffect
+
 
 func _ready() -> void:
+	if not detector_type == "Goal":
+		goal_particle_effect.visible = false
+	
 	mesh_instance_3d = get_node_or_null("%MeshInstance3D")
 	if mesh_instance_3d != null:
 		Helpers.set_shader_instance_params(mesh_instance_3d, material_config)

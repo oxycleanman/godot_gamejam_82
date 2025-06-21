@@ -23,6 +23,7 @@ func on_collided_with_player() -> void:
 	player.disguise_player(material_config.primary_color)
 	_handle_impact_tween()
 
+
 func _handle_impact_tween() -> void:
 	var impact_tween: Tween = create_tween()
 	impact_tween.tween_property(cell_mesh, "scale", Vector3.ONE * 1.3, 0.15)
@@ -34,5 +35,3 @@ func _handle_death_effect() -> void:
 	cell_mesh.visible = false
 	death_particle_effect.emitting = true
 	death_particle_effect.finished.connect(func() -> void: queue_free())
-
-# 770001, b70000, 0.0, 0.2, 2.5, 0.9, 0.007

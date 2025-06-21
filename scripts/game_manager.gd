@@ -65,10 +65,10 @@ func _handle_goal_reached() -> void:
 func _reset_current_level(show_loading_message: bool = true) -> void:
 	camera_manager.fade_to_black(1.5)
 	await camera_manager.fade_complete
-	var level_node: Node = level_manager.reload_current_level()
 	_cleanup_game_world()
 	ui_manager.on_goal_reached(show_loading_message)
 	await get_tree().create_timer(1.0).timeout
+	var level_node: Node = level_manager.reload_current_level()
 	_connect_level_interface_signals()
 	player_lives = default_starting_lives
 	ui_manager.set_player_lives(player_lives)

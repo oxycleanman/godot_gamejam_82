@@ -71,3 +71,4 @@ func _connect_enemies_to_handlers() -> void:
 			enemy_node.fired_projectile.connect(_handle_enemy_fired_projectile)
 		if enemy_node is Enemy:
 			enemy_node.detected_player.connect(_handle_detector_player_detection)
+			enemy_node.fired_projectile.connect(_handle_enemy_fired_projectile)

@@ -31,6 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1943, 9.16801, 0)
 [node name="Boundary" type="Node3D" parent="."]
 
 [node name="LevelBoundary" type="StaticBody3D" parent="Boundary"]
+constant_linear_velocity = Vector3(5, 5, 0)
 
 [node name="level_1_1_mesh" parent="Boundary/LevelBoundary" instance=ExtResource("4_xcq78")]
 

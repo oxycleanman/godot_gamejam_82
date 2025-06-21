@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://opmcclhr70e0"]
+[gd_scene load_steps=7 format=3 uid="uid://opmcclhr70e0"]
 
 [ext_resource type="Script" uid="uid://bhkabxgiuekbi" path="res://scripts/detector.gd" id="1_edrlx"]
 [ext_resource type="Resource" uid="uid://ne7pnehapcua" path="res://resources/configs/hazard_cell_shader_config.tres" id="2_bxa7v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o6xl0"]
 radius = 4.33303
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bxa7v"]
+emission_shape = 2
+emission_sphere_radius = 1.5
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 5, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3awr"]
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_sh1nk"]
+material = SubResource("StandardMaterial3D_v3awr")
+size = Vector2(0.2, 0.2)
 
 [node name="Area3D" type="Area3D"]
 collision_layer = 0
@@ -14,5 +29,11 @@ material_config = ExtResource("2_bxa7v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_o6xl0")
+
+[node name="GoalParticleEffect" type="GPUParticles3D" parent="."]
+unique_name_in_owner = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_bxa7v")
+draw_pass_1 = SubResource("QuadMesh_sh1nk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
