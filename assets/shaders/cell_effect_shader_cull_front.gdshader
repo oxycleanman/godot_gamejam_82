@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode unshaded, cull_front, world_vertex_coords;
+render_mode unshaded, cull_front, world_vertex_coords, depth_prepass_alpha, alpha_to_coverage;
 
 uniform vec3 Color: source_color;
 uniform vec3 glow_color: source_color;

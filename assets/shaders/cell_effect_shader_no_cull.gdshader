@@ -1,6 +1,6 @@
 shader_type spatial;
 
-render_mode unshaded, cull_back;
+render_mode unshaded, cull_back, depth_prepass_alpha, alpha_to_coverage;
 
 instance uniform vec3 Color: source_color;
 instance uniform vec3 glow_color: source_color;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b250gwoyo3enm"]
+[gd_scene load_steps=7 format=3 uid="uid://b250gwoyo3enm"]
 
 [ext_resource type="Script" uid="uid://bfgoqwxskyxtg" path="res://scripts/level_progress_marker.gd" id="1_daffq"]
 [ext_resource type="Shader" uid="uid://ct4kaw1c0gnhg" path="res://assets/shaders/circular_marker.gdshader" id="1_ulxer"]
@@ -15,6 +15,12 @@ shader_parameter/zoom_amplitude = 2.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_daffq"]
 
+[sub_resource type="FogMaterial" id="FogMaterial_daffq"]
+albedo = Color(0.18133, 0.702954, 0.391657, 1)
+emission = Color(0.238813, 0.748366, 0.391862, 1)
+height_falloff = 2.4623e-05
+edge_fade = 0.174111
+
 [node name="LevelProgressMarker" type="Node3D"]
 script = ExtResource("1_daffq")
 player_orb_material_config = ExtResource("2_daffq")
@@ -26,3 +32,11 @@ mesh = SubResource("QuadMesh_daffq")
 
 [node name="LevelCompleteDisplay" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="InfectionFogVolume" type="FogVolume" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.11598)
+visible = false
+size = Vector3(5, 5, 3)
+shape = 0
+material = SubResource("FogMaterial_daffq")

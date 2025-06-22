@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=17 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://c8sobjdahri64" path="res://scripts/camera_manager.gd" id="2_o6xl0"]
@@ -7,10 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/ui/disguise_info_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dg1i84ectnuam" path="res://scenes/ui/loading_ui_message.tscn" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://8s3sk53e2u51" path="res://scenes/ui/player_info_panel.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://djyhnmwjdn1h3" path="res://assets/level_meshes/level_background.glb" id="6_trceg"]
 [ext_resource type="Script" uid="uid://dxqgt8reametb" path="res://scripts/ui_manager.gd" id="7_85g3d"]
+[ext_resource type="Material" uid="uid://d4fdja00kontb" path="res://assets/materials/wall_shader_material.tres" id="7_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://x4sgn1vardrk" path="res://scenes/ui/detected_ui_message.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bai1x3jvs45xa" path="res://scenes/ui/main_menu_screen.tscn" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://ddc2n2f8m4cvy" path="res://assets/sounds/gwj_82_background.wav" id="10_choun"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_trceg"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 23.35
+dof_blur_far_transition = -1.0
+dof_blur_amount = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
 render_priority = 99
@@ -40,7 +48,8 @@ autoplay = true
 unique_name_in_owner = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-fov = 35.0
+attributes = SubResource("CameraAttributesPractical_trceg")
+fov = 39.6
 size = 9.874
 script = ExtResource("2_o6xl0")
 
@@ -48,6 +57,12 @@ script = ExtResource("2_o6xl0")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.392553)
 mesh = SubResource("QuadMesh_85g3d")
+
+[node name="level_background" parent="Camera3D" instance=ExtResource("6_trceg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.336, 2.27745, -198.89)
+
+[node name="Primary_Curve_014" parent="Camera3D/level_background" index="0"]
+material_override = ExtResource("7_a8y0u")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -93,3 +108,5 @@ unique_name_in_owner = true
 layout_mode = 1
 
 [connection signal="start_game_clicked" from="UI/MainMenuScreen" to="." method="_on_main_menu_screen_start_game_clicked"]
+
+[editable path="Camera3D/level_background"]

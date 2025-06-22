@@ -23,8 +23,10 @@ func _setup() -> void:
 	current_target_move_position = move_positions.front()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_moving or move_positions.is_empty():
+		if is_instance_valid(player) and player.currently_disguised:
+			player._handle_disguise_degradation(delta)
 		return
 	
 	is_moving = true
@@ -46,8 +48,6 @@ func _handle_movement_tween_complete() -> void:
 		move_position_index += 1
 		
 	current_target_move_position = move_positions.get(move_position_index)
-	if move_position_index == 5:
-		player.remove_player_disguise()
 	_build_movement_tween()
 
 

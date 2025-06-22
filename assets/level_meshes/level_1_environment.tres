@@ -13,3 +13,5 @@ sky = SubResource("Sky_sugp2")
 ambient_light_source = 1
 reflected_light_source = 1
 tonemap_mode = 2
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0

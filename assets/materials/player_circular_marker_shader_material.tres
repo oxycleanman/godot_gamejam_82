@@ -1,10 +1,10 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://q7r1ou71100x"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://degln7tmyl2ah"]
 
-[ext_resource type="Shader" uid="uid://ct4kaw1c0gnhg" path="res://assets/shaders/circular_marker.gdshader" id="1_r6gda"]
+[ext_resource type="Shader" uid="uid://ct4kaw1c0gnhg" path="res://assets/shaders/circular_marker.gdshader" id="1_hmyd0"]
 
 [resource]
 render_priority = 3
-shader = ExtResource("1_r6gda")
+shader = ExtResource("1_hmyd0")
 shader_parameter/color = Color(0.0823529, 0.952941, 0, 1)
 shader_parameter/color_intensity = 1000.0
 shader_parameter/transparency_level = 11.0

@@ -1,13 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://dt6no7wruqr4c"]
+[gd_scene load_steps=11 format=3 uid="uid://dt6no7wruqr4c"]
 
 [ext_resource type="Script" uid="uid://b83uv1va2hfvr" path="res://scripts/level_interface.gd" id="1_ldn7w"]
 [ext_resource type="Script" uid="uid://d1o17mdwkxrle" path="res://scripts/level_progress_display_manager.gd" id="2_ldn7w"]
 [ext_resource type="Environment" uid="uid://b2sg2q3fjpy7h" path="res://assets/level_meshes/level_1_environment.tres" id="2_ob7bt"]
 [ext_resource type="PackedScene" uid="uid://fupifwkm20dh" path="res://scenes/game_objects/player.tscn" id="3_54y6i"]
-[ext_resource type="PackedScene" uid="uid://b83b7sce1umr3" path="res://assets/level_meshes/test_level_from_blender.glb" id="4_uybx6"]
-[ext_resource type="Material" uid="uid://b0kxcvennpsqs" path="res://assets/materials/wall_shader_level_1_material.tres" id="5_yqfoy"]
+[ext_resource type="PackedScene" uid="uid://bt7oaui8lti1v" path="res://assets/level_meshes/level_progress_mesh.glb" id="5_ldn7w"]
 [ext_resource type="PackedScene" uid="uid://b250gwoyo3enm" path="res://scenes/game_objects/level_progress_marker.tscn" id="6_ldn7w"]
+[ext_resource type="Material" uid="uid://d4fdja00kontb" path="res://assets/materials/wall_shader_material.tres" id="6_ob7bt"]
 [ext_resource type="PackedScene" uid="uid://opmcclhr70e0" path="res://scenes/game_objects/detector.tscn" id="7_t1yst"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ldn7w"]
+render_priority = 2
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ob7bt"]
+material = SubResource("StandardMaterial3D_ldn7w")
+size = Vector2(300, 300)
 
 [node name="Level_Template" type="Node3D"]
 script = ExtResource("1_ldn7w")
@@ -26,57 +35,60 @@ environment = ExtResource("2_ob7bt")
 
 [node name="Player" parent="." instance=ExtResource("3_54y6i")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32214, 4.89837, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.32214, 3.40155, 0)
 
 [node name="Boundary" type="Node3D" parent="."]
-transform = Transform3D(0.508591, -0.861008, 0, 0.861008, 0.508591, 0, 0, 0, 1, 0, 0.8482, 0)
+transform = Transform3D(0.508591, -0.861008, 0, 0.861008, 0.508591, 0, 0, 0, 1, 0, -9.59756, -54.3577)
 
-[node name="test_level_from_blender" parent="Boundary" instance=ExtResource("4_uybx6")]
-transform = Transform3D(0.707107, -3.09086e-08, -0.707107, -0.707107, -3.09086e-08, -0.707107, 0, 1, -4.37114e-08, -4.55012, 4.68006, -49.4602)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boundary"]
+transform = Transform3D(0.860966, 0.00856542, 0.508591, 0.508565, 0.00505949, -0.861008, -0.0099481, 0.999951, -4.37114e-08, 0, 0, -95.7626)
+mesh = SubResource("PlaneMesh_ob7bt")
 
-[node name="CurveMesh" parent="Boundary/test_level_from_blender" index="0"]
-transform = Transform3D(1.14441e-05, 0, -57.4842, 4.54747e-13, 57.4842, -4.00504e-14, 57.4842, 0, 1.14441e-05, 11.3817, -25.1822, -10.9075)
-material_override = ExtResource("5_yqfoy")
+[node name="level_progress_mesh" parent="Boundary" instance=ExtResource("5_ldn7w")]
+transform = Transform3D(0.611265, 0.791426, 0, -0.791426, 0.611265, 0, 0, 0, 1, 0, 0, -86.0606)
+
+[node name="Primary_Curve_018" parent="Boundary/level_progress_mesh" index="0"]
+material_override = ExtResource("6_ob7bt")
 
 [node name="Pickups" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(0.508591, -0.861008, 0, 0.861008, 0.508591, 0, 0, 0, 1, 0, 0.8482, 0)
 
 [node name="LevelProgressMarker" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15173, 5.29158, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09897, 9.61169, 0)
 
 [node name="LevelProgressMarker2" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52538, 3.96117, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.232917, 5.62529, 0)
 
 [node name="LevelProgressMarker3" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.96545, 6.44986, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72719, 4.35358, 0)
 
 [node name="LevelProgressMarker4" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.00347, 4.49246, 0.00190926)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0982412, 2.65533, 0.00190926)
 
 [node name="LevelProgressMarker5" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67815, 1.13144, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1375, 1.27601, 0)
 
 [node name="LevelProgressMarker6" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.68318, -2.05657, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2302, -1.11985, 0)
 
 [node name="LevelProgressMarker7" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.81599, -1.91287, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.62078, -2.24336, 0)
 
 [node name="LevelProgressMarker8" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.14996, -4.14781, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510016, -4.15781, 0)
 
 [node name="LevelProgressMarker9" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19999, -0.471512, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.979545, -0.8538, 0)
 
 [node name="LevelProgressMarker10" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37042, -1.81976, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.06499, -0.766637, 0)
 
 [node name="LevelProgressMarker11" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.32235, 1.21332, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80878, 2.08276, 0)
 
 [node name="LevelProgressMarker12" parent="Pickups" instance=ExtResource("6_ldn7w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58714, -0.765094, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35916, 0.293606, 0)
 
 [node name="Detectors" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -95,7 +107,6 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41681, -0.741933, 8.87511)
 current = true
-fov = 73.8
 size = 0.001
 
-[editable path="Boundary/test_level_from_blender"]
+[editable path="Boundary/level_progress_mesh"]

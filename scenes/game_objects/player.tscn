@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://fupifwkm20dh"]
+[gd_scene load_steps=9 format=3 uid="uid://fupifwkm20dh"]
 
 [ext_resource type="Script" uid="uid://ce8oopwv4q7hf" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="2_6qfcv"]
 [ext_resource type="Resource" uid="uid://4jk8ura1ce2n" path="res://resources/configs/player_cell_shader_config.tres" id="2_jlhh2"]
+[ext_resource type="Material" uid="uid://degln7tmyl2ah" path="res://assets/materials/player_circular_marker_shader_material.tres" id="3_1kulv"]
 [ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="4_jlhh2"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_tbgi4"]
@@ -11,6 +12,10 @@ radial_segments = 128
 rings = 64
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tefeu"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1kulv"]
+material = ExtResource("3_1kulv")
+size = Vector2(2.3, 2.3)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -21,6 +26,7 @@ wall_min_slide_angle = 0.174533
 platform_wall_layers = 4
 script = ExtResource("1_3vyb7")
 material_config = ExtResource("2_jlhh2")
+marker_material = ExtResource("3_1kulv")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
@@ -30,4 +36,8 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_tefeu")
 
-[node name="GPUParticles3D" parent="." instance=ExtResource("4_jlhh2")]
+[node name="DeathParticleEffect" parent="." instance=ExtResource("4_jlhh2")]
+
+[node name="CircularMarker" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("QuadMesh_1kulv")

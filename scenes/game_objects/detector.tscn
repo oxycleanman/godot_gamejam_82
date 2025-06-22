@@ -13,13 +13,18 @@ direction = Vector3(0, 1, 0)
 spread = 180.0
 gravity = Vector3(0, 5, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3awr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxa7v"]
+render_priority = 2
 emission_enabled = true
-emission = Color(1, 1, 0, 1)
+emission = Color(0.631269, 0.785181, 0, 1)
+emission_energy_multiplier = 1.38
 
-[sub_resource type="QuadMesh" id="QuadMesh_sh1nk"]
-material = SubResource("StandardMaterial3D_v3awr")
-size = Vector2(0.2, 0.2)
+[sub_resource type="SphereMesh" id="SphereMesh_v3awr"]
+material = SubResource("StandardMaterial3D_bxa7v")
+radius = 0.1
+height = 0.2
+radial_segments = 16
+rings = 8
 
 [node name="Area3D" type="Area3D"]
 collision_layer = 0
@@ -34,6 +39,6 @@ shape = SubResource("SphereShape3D_o6xl0")
 unique_name_in_owner = true
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_bxa7v")
-draw_pass_1 = SubResource("QuadMesh_sh1nk")
+draw_pass_1 = SubResource("SphereMesh_v3awr")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
