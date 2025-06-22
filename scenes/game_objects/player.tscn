@@ -18,6 +18,7 @@ material = ExtResource("3_1kulv")
 size = Vector2(2.3, 2.3)
 
 [node name="Player" type="CharacterBody3D"]
+process_mode = 1
 collision_layer = 2
 collision_mask = 7
 axis_lock_linear_z = true

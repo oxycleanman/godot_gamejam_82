@@ -15,10 +15,12 @@ var push_back_force: float = 200.0
 var player: Player
 var velocity: Vector3
 var exploding: bool = false
+var audio_manager: AudioManager
 
 
 func _ready() -> void:
 	player = Globals.refs[Constants.PLAYER]
+	audio_manager = Globals.refs[Constants.AUDIO_MANAGER]
 	Helpers.set_shader_instance_params(projectile_mesh, material_config)
 	Helpers.set_shader_instance_params(cell_death_effect, particle_material_config)
 	velocity = global_position * speed
@@ -56,7 +58,9 @@ func _handle_impact_tween() -> void:
 
 func _handle_death_effect() -> void:
 	projectile_mesh.visible = false
-	impact_sound_player.play()
+	if audio_manager.get_should_play_sound_effects():
+		impact_sound_player.volume_linear = audio_manager.get_sound_effect_volume_linear()
+		impact_sound_player.play()
 	cell_death_effect.draw_pass_1.material.set_shader_parameter("Color", material_config.primary_color)
 	cell_death_effect.emitting = true
 	cell_death_effect.finished.connect(func() -> void: queue_free())

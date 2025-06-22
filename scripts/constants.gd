@@ -6,6 +6,8 @@ static var MOVE_LEFT: StringName = "action_move_left"
 static var MOVE_RIGHT: StringName = "action_move_right"
 static var MOVE_UP: StringName = "action_move_up"
 static var MOVE_DOWN: StringName = "action_move_down"
+static var PAUSE: StringName = "action_pause_game"
+static var ESCAPE: StringName = "action_ui_escape"
 
 # Class reference names
 static var GAME_MANAGER: StringName = "GameManager"

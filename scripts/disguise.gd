@@ -11,11 +11,13 @@ signal collided_with_player(color_of_disguise: Color)
 @export var particle_material_config: CellShaderConfig
 
 var handling_collision_with_player: bool = false
+var audio_manager: AudioManager
 
 
 func _ready() -> void:
 	Helpers.set_shader_instance_params(cell_mesh, material_config)
 	Helpers.set_shader_instance_params(death_particle_effect, particle_material_config)
+	audio_manager = Globals.refs[Constants.AUDIO_MANAGER]
 
 
 func _handle_impact_tween() -> void:
@@ -29,7 +31,10 @@ func _handle_death_effect() -> void:
 	print("_handle_death_effect called")
 	cell_mesh.visible = false
 	circular_marker.visible = false
-	death_sound_player.play()
+	if audio_manager.get_should_play_sound_effects():
+		print("trying to play sound effect")
+		death_sound_player.volume_linear = audio_manager.get_sound_effect_volume_linear()
+		death_sound_player.play()
 	death_particle_effect.emitting = true
 	death_particle_effect.finished.connect(func() -> void: queue_free())
 

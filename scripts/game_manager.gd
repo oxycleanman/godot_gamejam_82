@@ -9,6 +9,8 @@ var level_manager: LevelManager
 var player_lives: int
 var player: Player
 var ready_to_start_gameplay: bool = false
+var game_paused: bool = false
+var reached_end_of_game: bool = false
 
 
 func _ready() -> void:
@@ -101,3 +103,38 @@ func _on_main_menu_screen_start_game_clicked() -> void:
 	ready_to_start_gameplay = true
 	ui_manager.set_should_show_main_menu(false)
 	_handle_goal_reached()
+
+
+func _on_input_manager_pause_button_pressed() -> void:
+	get_tree().paused = true
+	game_paused = true
+	ui_manager.show_pause_menu()
+
+
+func _on_pause_menu_continue_pressed() -> void:
+	game_paused = false
+	ui_manager.hide_pause_menu()
+	get_tree().paused = false
+
+
+func _on_pause_menu_quit_pressed() -> void:
+	get_tree().quit(0)
+
+
+func _on_audio_manager_bg_music_started(new_value: float) -> void:
+	ui_manager.set_settings_menu_bg_music_slider(new_value)
+	ui_manager.set_settings_menu_bg_button_value(true)
+
+
+func _on_audio_manager_sound_effect_started(new_value: float) -> void:
+	ui_manager.set_settings_menu_sound_effect_button_value(true)
+	ui_manager.set_settings_menu_sound_effect_slider(new_value)
+
+
+func _on_level_manager_reached_end_of_levels() -> void:
+	reached_end_of_game = true
+	ui_manager.reached_end_of_game()
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit(0)

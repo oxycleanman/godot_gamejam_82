@@ -13,6 +13,8 @@ var target_marker_for_movement: LevelProgressMarker
 func _ready() -> void:
 	level_manager = Globals.refs[Constants.LEVEL_MANAGER]
 	game_manager = Globals.refs[Constants.GAME_MANAGER]
+	if game_manager.reached_end_of_game:
+		goal.queue_free() #stop from trying to go to another level
 	_setup.call_deferred()
 
 
@@ -23,6 +25,10 @@ func _setup() -> void:
 	var markers_updated: int = 0
 	print("determining level markers to update")
 	for marker: Node in markers:
+		if game_manager.reached_end_of_game:
+			marker.set_level_complete()
+			continue
+		
 		if markers_updated == current_level:
 			target_marker_for_movement = marker
 			if last_completed_level_marker == null:
@@ -35,8 +41,12 @@ func _setup() -> void:
 		markers_updated += 2 # need to add extra here to account for progress level being in levels array
 		print("markers_updated = ", markers_updated)
 	
+	if game_manager.reached_end_of_game:
+		return
+	
 	player.global_position = last_completed_level_marker.global_position
-	goal.global_position = target_marker_for_movement.global_position
+	if is_instance_valid(goal):
+		goal.global_position = target_marker_for_movement.global_position
 	get_tree().create_timer(0.5).timeout.connect(_build_movement_tween)
 
 

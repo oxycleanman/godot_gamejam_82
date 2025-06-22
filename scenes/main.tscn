@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=21 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://c8sobjdahri64" path="res://scripts/camera_manager.gd" id="2_o6xl0"]
 [ext_resource type="Script" uid="uid://c6wgrnch08il1" path="res://scripts/level_manager.gd" id="2_tipki"]
+[ext_resource type="Script" uid="uid://ci4vfitlfcn8x" path="res://scripts/input_manager.gd" id="3_jkv2x"]
 [ext_resource type="Script" uid="uid://bdwge1cpnfq2c" path="res://scripts/audio_manager.gd" id="3_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/ui/disguise_info_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dg1i84ectnuam" path="res://scenes/ui/loading_ui_message.tscn" id="5_tefeu"]
@@ -13,6 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://x4sgn1vardrk" path="res://scenes/ui/detected_ui_message.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bai1x3jvs45xa" path="res://scenes/ui/main_menu_screen.tscn" id="9_85g3d"]
 [ext_resource type="AudioStream" uid="uid://ddc2n2f8m4cvy" path="res://assets/sounds/gwj_82_background.wav" id="10_choun"]
+[ext_resource type="Theme" uid="uid://bfcclydi8h3s8" path="res://resources/game_theme.tres" id="11_muem4"]
+[ext_resource type="PackedScene" uid="uid://cu2ep3xdys73o" path="res://scenes/ui/pause_menu_screen.tscn" id="14_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://ck3hjt4vd3f2m" path="res://scenes/ui/settings_menu_screen.tscn" id="16_jbj1t"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_trceg"]
 dof_blur_far_enabled = true
@@ -30,10 +34,14 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_tipki")
 
 [node name="Main" type="Node3D"]
+process_mode = 3
 script = ExtResource("1_tefeu")
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("2_tipki")
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("3_jkv2x")
 
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("3_ya4ey")
@@ -46,6 +54,7 @@ autoplay = true
 
 [node name="GameWorld" type="Node3D" parent="."]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 attributes = SubResource("CameraAttributesPractical_trceg")
@@ -65,12 +74,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.336, 2.27745, -198.89)
 material_override = ExtResource("7_a8y0u")
 
 [node name="UI" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("11_muem4")
 script = ExtResource("7_85g3d")
 
 [node name="DisguiseInfoPanel" parent="UI" instance=ExtResource("5_tbgi4")]
@@ -79,6 +90,7 @@ layout_mode = 1
 offset_left = -160.0
 offset_top = -116.0
 offset_right = 160.0
+theme = ExtResource("11_muem4")
 
 [node name="DetectedAlert" parent="UI" instance=ExtResource("7_o6xl0")]
 unique_name_in_owner = true
@@ -107,6 +119,88 @@ layout_mode = 1
 unique_name_in_owner = true
 layout_mode = 1
 
+[node name="PauseMenu" parent="UI" instance=ExtResource("14_a8y0u")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+
+[node name="SettingsMenu" parent="UI" instance=ExtResource("16_jbj1t")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_top = -241.0
+offset_bottom = 241.0
+
+[node name="GameEndScreen" type="MarginContainer" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -530.0
+offset_top = -154.0
+offset_right = 530.0
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameEndScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameEndScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameEndScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Congratulations!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label2" type="Label" parent="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You've evaded eradication and successfully gave someone a mild cold. Not cool bro."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Exit Button" type="Button" parent="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close the game and go think about what you've done"
+
+[connection signal="reached_end_of_levels" from="LevelManager" to="." method="_on_level_manager_reached_end_of_levels"]
+[connection signal="pause_button_pressed" from="InputManager" to="." method="_on_input_manager_pause_button_pressed"]
+[connection signal="audio_manager_bg_music_started" from="AudioManager" to="." method="_on_audio_manager_bg_music_started"]
+[connection signal="audio_manager_sound_effect_started" from="AudioManager" to="." method="_on_audio_manager_sound_effect_started"]
 [connection signal="start_game_clicked" from="UI/MainMenuScreen" to="." method="_on_main_menu_screen_start_game_clicked"]
+[connection signal="continue_pressed" from="UI/PauseMenu" to="." method="_on_pause_menu_continue_pressed"]
+[connection signal="continue_pressed" from="UI/PauseMenu" to="UI" method="_on_pause_menu_continue_pressed"]
+[connection signal="quit_pressed" from="UI/PauseMenu" to="." method="_on_pause_menu_quit_pressed"]
+[connection signal="quit_pressed" from="UI/PauseMenu" to="UI" method="_on_pause_menu_quit_pressed"]
+[connection signal="settings_pressed" from="UI/PauseMenu" to="UI" method="_on_pause_menu_settings_pressed"]
+[connection signal="background_music_toggled" from="UI/SettingsMenu" to="AudioManager" method="_on_settings_menu_background_music_toggled"]
+[connection signal="music_volume_changed" from="UI/SettingsMenu" to="AudioManager" method="_on_settings_menu_music_volume_changed"]
+[connection signal="settings_back_button_pressed" from="UI/SettingsMenu" to="UI" method="_on_settings_menu_settings_back_button_pressed"]
+[connection signal="show_ui_text_elements_toggled" from="UI/SettingsMenu" to="UI" method="_on_settings_menu_show_ui_text_elements_toggled"]
+[connection signal="sound_effect_volume_changed" from="UI/SettingsMenu" to="AudioManager" method="_on_settings_menu_sound_effect_volume_changed"]
+[connection signal="sound_effects_toggled" from="UI/SettingsMenu" to="AudioManager" method="_on_settings_menu_sound_effects_toggled"]
+[connection signal="pressed" from="UI/GameEndScreen/PanelContainer/MarginContainer/VBoxContainer/Exit Button" to="." method="_on_exit_button_pressed"]
 
 [editable path="Camera3D/level_background"]
