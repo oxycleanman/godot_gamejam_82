@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://b250gwoyo3enm"]
+
+[ext_resource type="Script" uid="uid://bfgoqwxskyxtg" path="res://scripts/level_progress_marker.gd" id="1_daffq"]
+[ext_resource type="Shader" uid="uid://ct4kaw1c0gnhg" path="res://assets/shaders/circular_marker.gdshader" id="1_ulxer"]
+[ext_resource type="Resource" uid="uid://bxih8wbe2iv2g" path="res://resources/configs/player_life_orb_cell_shader_config.tres" id="2_daffq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbk3w"]
+render_priority = 0
+shader = ExtResource("1_ulxer")
+shader_parameter/color = Color(1, 0, 0, 1)
+shader_parameter/color_intensity = 1000.0
+shader_parameter/transparency_level = 10.0
+shader_parameter/speed = 2.0
+shader_parameter/zoom_amplitude = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_daffq"]
+
+[node name="LevelProgressMarker" type="Node3D"]
+script = ExtResource("1_daffq")
+player_orb_material_config = ExtResource("2_daffq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+material_override = SubResource("ShaderMaterial_jbk3w")
+mesh = SubResource("QuadMesh_daffq")
+
+[node name="LevelCompleteDisplay" type="Node3D" parent="."]
+unique_name_in_owner = true

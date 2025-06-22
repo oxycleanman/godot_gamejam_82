@@ -75,6 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 39.5506, 0)
 material_override = ExtResource("6_lyakx")
 
 [node name="Pickups" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="Disguise" parent="Pickups" instance=ExtResource("6_m5xfe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3257, 4.36037, 0)

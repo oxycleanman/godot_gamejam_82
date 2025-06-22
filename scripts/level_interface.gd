@@ -10,11 +10,15 @@ signal level_player_hit_hazard()
 @onready var player: Player = %Player
 @onready var detector_parent_node: Node3D = %Detectors
 @onready var enemy_parent_node: Node3D = %Enemies
+@onready var pickups_parent_node: Node3D = %Pickups
+var level_progress_display_manager: LevelProgressDisplayManager
 
 func _ready() -> void:
+	level_progress_display_manager = get_node_or_null("%LevelProgressDisplayManager")
 	_connect_player_to_handlers()
 	_connect_detectors_to_handlers()
 	_connect_enemies_to_handlers()
+	_connect_pickups_to_handlers()
 
 
 func _handle_player_disguised_signal(value: bool) -> void:
@@ -44,6 +48,20 @@ func _handle_enemy_fired_projectile(projectile: Projectile) -> void:
 func _connect_player_to_handlers() -> void:
 	player.player_disguised.connect(_handle_player_disguised_signal)
 	player.player_disguise_health_changed.connect(_handle_player_diguise_health_changed)
+
+
+func _handle_pickup_collide_with_player(color_from_pickup: Color) -> void:
+	player.disguise_player(color_from_pickup)
+
+
+func _connect_pickups_to_handlers() -> void:
+	if not is_instance_valid(pickups_parent_node):
+		return
+	
+	var pickup_nodes: Array[Node] = pickups_parent_node.get_children()
+	for pickup_node: Node in pickup_nodes:
+		if pickup_node is Disguise:
+			pickup_node.collided_with_player.connect(_handle_pickup_collide_with_player)
 
 
 func _connect_detectors_to_handlers() -> void:

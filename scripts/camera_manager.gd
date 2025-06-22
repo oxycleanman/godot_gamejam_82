@@ -40,6 +40,7 @@ func on_level_loaded() -> void:
 
 
 func fade_to_black(fade_duration: float = 1.0) -> void:
+	scene_fade_mesh.transparency = 1.0
 	var fade_tween: Tween = create_tween()
 	fade_tween.tween_property(scene_fade_mesh, "transparency", 0.0, fade_duration)
 	fade_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
@@ -47,6 +48,7 @@ func fade_to_black(fade_duration: float = 1.0) -> void:
 
 
 func fade_from_black(fade_duration: float = 1.0) -> void:
+	scene_fade_mesh.transparency = 0.0
 	var fade_tween: Tween = create_tween()
 	fade_tween.tween_property(scene_fade_mesh, "transparency", 1.0, fade_duration)
 	fade_tween.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)

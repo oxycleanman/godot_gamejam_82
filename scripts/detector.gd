@@ -8,12 +8,14 @@ var mesh_instance_3d: MeshInstance3D
 
 @export_enum("Alert", "Collectable", "Goal", "Hazard") var detector_type: String
 @export var material_config: CellShaderConfig
+@export var goal_reached_signal_delay: float = 0.0
+@export var show_goal_particle_effect: bool = true
 
 @onready var goal_particle_effect: GPUParticles3D = %GoalParticleEffect
 
 
 func _ready() -> void:
-	if not detector_type == "Goal":
+	if not detector_type == "Goal" or show_goal_particle_effect == false:
 		goal_particle_effect.visible = false
 	
 	mesh_instance_3d = get_node_or_null("%MeshInstance3D")
@@ -44,7 +46,11 @@ func _handle_collectible_detection(_body: Node3D) -> void:
 
 func _handle_goal_detection(body: Node3D) -> void:
 	if body is Player:
-		player_reached_goal.emit()
+		if goal_reached_signal_delay < 0.1:
+			player_reached_goal.emit()
+			return
+		
+		get_tree().create_timer(goal_reached_signal_delay).timeout.connect(func() -> void: player_reached_goal.emit())
 
 func _handle_hazard_detection(body: Node3D) -> void:
 	if body is Player:

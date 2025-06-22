@@ -13,6 +13,7 @@ static var PLAYER: StringName = "Player"
 static var UI_MANAGER: StringName = "UIManager"
 static var CAMERA_MANAGER: StringName = "CameraManager"
 static var LEVEL_MANAGER: StringName = "LevelManager"
+static var AUDIO_MANAGER: StringName = "AudioManager"
 
 # UI reference names
 static var INFO_PANEL: StringName = "InfoPanel"

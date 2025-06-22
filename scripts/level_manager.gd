@@ -4,6 +4,7 @@ const MAIN_MENU_BACKGROUND = preload("res://scenes/levels/main_menu_background.t
 const LEVEL_1_1 = preload("res://scenes/levels/level_1_1.tscn")
 const LEVEL_1_2 = preload("res://scenes/levels/level_1_2.tscn")
 const LEVEL_1_3 = preload("res://scenes/levels/level_1_3.tscn")
+const PROGRESS_DISPLAY_LEVEL = preload("res://scenes/levels/progress_display_level.tscn")
 
 var current_level_node: Node
 var current_level_index: int = -1
@@ -12,10 +13,16 @@ var game_levels: Array[PackedScene]
 
 func _ready() -> void:
 	Globals.refs[Constants.LEVEL_MANAGER] = self
+	# There's definitely a better way to do this, right?
+	# ......... Right?
 	game_levels = [
 		MAIN_MENU_BACKGROUND,
+		LEVEL_1_1,
+		PROGRESS_DISPLAY_LEVEL,
 		LEVEL_1_2,
-		LEVEL_1_3
+		PROGRESS_DISPLAY_LEVEL,
+		LEVEL_1_3,
+		PROGRESS_DISPLAY_LEVEL
 	] 
 
 
@@ -34,6 +41,10 @@ func reload_current_level() -> Node:
 
 func get_current_level() -> Node:
 	return current_level_node
+
+
+func get_current_level_index() -> int:
+	return current_level_index
 
 
 func teardown_current_level() -> void:

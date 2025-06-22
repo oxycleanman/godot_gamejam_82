@@ -4,6 +4,7 @@ signal projectile_hit_player()
 
 @onready var cell_death_effect: GPUParticles3D = %CellDeathEffect
 @onready var projectile_mesh: MeshInstance3D = %ProjectileMesh
+@onready var impact_sound_player: AudioStreamPlayer3D = %ImpactSoundPlayer
 
 @export var material_config: CellShaderConfig
 @export var particle_material_config: CellShaderConfig
@@ -55,6 +56,7 @@ func _handle_impact_tween() -> void:
 
 func _handle_death_effect() -> void:
 	projectile_mesh.visible = false
+	impact_sound_player.play()
 	cell_death_effect.draw_pass_1.material.set_shader_parameter("Color", material_config.primary_color)
 	cell_death_effect.emitting = true
 	cell_death_effect.finished.connect(func() -> void: queue_free())

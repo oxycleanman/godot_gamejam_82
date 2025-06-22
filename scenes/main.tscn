@@ -1,14 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://ceagb7af3kgna"]
+[gd_scene load_steps=14 format=3 uid="uid://ceagb7af3kgna"]
 
 [ext_resource type="Script" uid="uid://bfkrxrnh1ro7c" path="res://scripts/game_manager.gd" id="1_tefeu"]
 [ext_resource type="Script" uid="uid://c8sobjdahri64" path="res://scripts/camera_manager.gd" id="2_o6xl0"]
 [ext_resource type="Script" uid="uid://c6wgrnch08il1" path="res://scripts/level_manager.gd" id="2_tipki"]
+[ext_resource type="Script" uid="uid://bdwge1cpnfq2c" path="res://scripts/audio_manager.gd" id="3_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://dpyb4i1tar2bp" path="res://scenes/ui/disguise_info_panel.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://dg1i84ectnuam" path="res://scenes/ui/loading_ui_message.tscn" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://8s3sk53e2u51" path="res://scenes/ui/player_info_panel.tscn" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dxqgt8reametb" path="res://scripts/ui_manager.gd" id="7_85g3d"]
 [ext_resource type="PackedScene" uid="uid://x4sgn1vardrk" path="res://scenes/ui/detected_ui_message.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bai1x3jvs45xa" path="res://scenes/ui/main_menu_screen.tscn" id="9_85g3d"]
+[ext_resource type="AudioStream" uid="uid://ddc2n2f8m4cvy" path="res://assets/sounds/gwj_82_background.wav" id="10_choun"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
 render_priority = 99
@@ -24,6 +26,15 @@ script = ExtResource("1_tefeu")
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource("2_tipki")
+
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("3_ya4ey")
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+unique_name_in_owner = true
+stream = ExtResource("10_choun")
+volume_db = -8.0
+autoplay = true
 
 [node name="GameWorld" type="Node3D" parent="."]
 unique_name_in_owner = true

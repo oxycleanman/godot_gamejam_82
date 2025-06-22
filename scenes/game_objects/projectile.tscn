@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://wi8lt5sj2ick"]
+[gd_scene load_steps=9 format=3 uid="uid://wi8lt5sj2ick"]
 
 [ext_resource type="Script" uid="uid://csgfqw4t2p5ed" path="res://scripts/projectile.gd" id="1_feyxv"]
 [ext_resource type="PackedScene" uid="uid://c8qaju20oncuj" path="res://scenes/game_objects/cell_death_particle_effect.tscn" id="2_khkg0"]
 [ext_resource type="Resource" uid="uid://cyi52as2ionye" path="res://resources/configs/projectile_cell_shader_config.tres" id="2_wehbh"]
 [ext_resource type="Resource" uid="uid://bt2j7d1il5k66" path="res://resources/configs/projectile_death_shader_config.tres" id="3_byuv6"]
 [ext_resource type="Material" uid="uid://cmksacprq7g8y" path="res://assets/materials/cell_shader_material.tres" id="4_wehbh"]
+[ext_resource type="AudioStream" uid="uid://i8lkv71ohl8q" path="res://assets/sounds/pop_1.wav" id="6_pylft"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_feyxv"]
 material = ExtResource("4_wehbh")
@@ -32,3 +33,8 @@ mesh = SubResource("SphereMesh_feyxv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_4e6bl")
+
+[node name="ImpactSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_pylft")
+volume_db = 12.0

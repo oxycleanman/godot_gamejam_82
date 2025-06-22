@@ -43,6 +43,7 @@ transform = Transform3D(1.0279e-05, 57.4842, 0, -57.4842, 1.0279e-05, 0, 0, 0, 5
 shape = SubResource("ConcavePolygonShape3D_014xt")
 
 [node name="Pickups" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="Disguise" parent="Pickups" instance=ExtResource("3_uu7xq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.627, -5.16856, 0)
