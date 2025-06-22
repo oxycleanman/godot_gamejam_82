@@ -35,6 +35,7 @@ var valid_player_life_orb_spawn_offsets: Array[Vector3] = [
 ]
 var player_life_orbs: Array[MeshInstance3D] = []
 var life_orbs_visible: int = 0
+var disguise_color: Color
 
 func _ready() -> void:
 	Globals.refs[Constants.PLAYER] = self
@@ -61,14 +62,14 @@ func _physics_process(delta: float) -> void:
 	
 	if bouncing_from_collision:
 		velocity = velocity.move_toward(Vector3.ZERO, drag_when_stopping)
-		_handle_disguise_degredation(delta)
+		_handle_disguise_degradation(delta)
 		return
 	
 	if input_vector.is_zero_approx():
 		movement_direction = movement_direction.move_toward(Vector2.ZERO, drag_when_stopping)
 	else:
 		movement_direction = input_vector.normalized()
-		_handle_disguise_degredation(delta)
+		_handle_disguise_degradation(delta)
 	
 	if not collided_during_movement:
 		velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
@@ -80,18 +81,19 @@ func _physics_process(delta: float) -> void:
 		
 	velocity = Vector3(movement_direction.x * speed, movement_direction.y * speed, 0.0)
 		
-	#var collision_normal: Vector3 = get_last_slide_collision().get_normal()
-	#_bounce_player(collision_normal)
+	var collision_normal: Vector3 = get_last_slide_collision().get_normal()
+	_bounce_player(collision_normal)
 
 
-func _handle_disguise_degredation(delta: float) -> void:
+func _handle_disguise_degradation(delta: float) -> void:
 	if not currently_disguised:
 		return
 	
 	current_disguise_health -= disguise_damage_from_movement * delta
 	current_disguise_health = clampf(current_disguise_health, 0.0, max_disguise_health)
-	# remapping disguise health to 0-100 scale so it displays in progress bar correctly
-	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
+	var remapped_disguise_health: float = remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 1.0)
+	_set_material_colors(lerp(disguise_color, material_config.primary_color, 1.0 - remapped_disguise_health), lerp(disguise_color.lightened(0.5), material_config.rim_color, 1.0 - remapped_disguise_health))
+	player_disguise_health_changed.emit(remapped_disguise_health * 100.0)
 	if current_disguise_health == 0.0:
 		currently_disguised = false
 		current_disguise_health = max_disguise_health
@@ -110,6 +112,7 @@ func _bounce_player(normal_from_collision: Vector3) -> void:
 
 func disguise_player(color: Color) -> void:
 	currently_disguised = true
+	disguise_color = color
 	player_disguise_health_changed.emit(remap(current_disguise_health, 0.0, max_disguise_health, 0.0, 100.0))
 	_set_material_colors(color, color.lightened(0.5))
 

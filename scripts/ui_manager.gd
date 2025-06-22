@@ -38,11 +38,11 @@ func on_goal_reached(show_loading_message: bool = true) -> void:
 	detected_alert.visible = false
 	#player_info_panel.visible = false
 	main_menu_screen.visible = should_show_main_menu
-	loading_message.visible = show_loading_message
+	#loading_message.visible = show_loading_message
 
 
 func on_new_level_loaded() -> void:
-	loading_message.visible = false
+	#loading_message.visible = false
 	disguise_info_panel.visible = false
 	disguise_info_panel.set_disguise_health_bar_value(100.0)
 	detected_alert.visible = false
