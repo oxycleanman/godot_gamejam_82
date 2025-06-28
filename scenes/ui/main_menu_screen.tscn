@@ -27,7 +27,7 @@ theme_override_constants/margin_bottom = 40
 [node name="MainTitleText" type="RichTextLabel" parent="HBoxContainer/TitleMarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 48
-text = "Placeholder Title"
+text = "Infection"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
